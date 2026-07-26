@@ -50,7 +50,7 @@ function Home() {
 
 			<section className='dashboard-goals grid grid-cols-3 mt-4'>
 				{/* Loop through data here to populate goals */}
-				<GoalCard title="Macbook Pro M4" currentAmount={10} goalAmount={50} deadline="15 Sep 2026" />
+				<GoalCard name="Macbook Pro M4" currentAmount={10} goalAmount={50} deadline="15 Sep 2026" />
 			</section>
 		</main>
 	)

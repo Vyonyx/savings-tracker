@@ -2,14 +2,14 @@ import { Progress } from "./ui/progress"
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
 
 type Props = {
-	title: string
+	name: string
 	currentAmount: number
 	goalAmount: number
 	deadline?: string
 }
 
 export const GoalCard = ({
-	title, 
+	name,
 	currentAmount, 
 	goalAmount, 
 	deadline,
@@ -18,7 +18,7 @@ export const GoalCard = ({
 
 	return (
 		<Card className='col-span-2 bg-orange'>
-			<CardHeader>{title}</CardHeader>
+			<CardHeader>{name}</CardHeader>
 
 			<CardContent>
 				<span className='text-4xl'>{progressValue}%</span>
