@@ -1,6 +1,6 @@
+import GoalCard from '#/components/GoalCard'
 import { Button } from '#/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '#/components/ui/card'
-import { Progress } from '#/components/ui/progress'
+import { Card, CardContent, CardHeader } from '#/components/ui/card'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
 
@@ -50,19 +50,7 @@ function Home() {
 
 			<section className='dashboard-goals grid grid-cols-3 mt-4'>
 				{/* Loop through data here to populate goals */}
-				<Card className='col-span-2 bg-orange'>
-					<CardHeader>Macbook Pro M4</CardHeader>
-
-					<CardContent>
-						<span className='text-4xl'>76%</span>
-						<Progress value={60}/>
-					</CardContent>
-
-					<CardFooter className='flex items-center gap-4 text-xs'>
-						<p><span>$4,000</span> of <span>$5,000</span></p>
-						<span>No deadline</span>
-					</CardFooter>
-				</Card>
+				<GoalCard title="Macbook Pro M4" currentAmount={10} goalAmount={50} deadline="15 Sep 2026" />
 			</section>
 		</main>
 	)
