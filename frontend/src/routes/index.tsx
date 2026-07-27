@@ -17,7 +17,7 @@ function Home() {
 	const goals = Route.useLoaderData()
 
 	return (
-		<main className='container mx-auto'>
+		<main className='container mx-auto px-8'>
 			<section className='dashboard-statistics grid gap-4 grid-cols-4 my-10'>
 				<Card className='col-span-2 bg-orange'>
 					<CardHeader>Total savings</CardHeader>
@@ -57,9 +57,9 @@ function Home() {
 				</div>
 			</section>
 
-			<section className='dashboard-goals grid grid-cols-3 mt-4'>
-				{goals && goals.map((goal) => (
-					<GoalCard key={goal.id} goal={goal} />
+			<section className='dashboard-goals grid md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-4 mt-4 gap-4 mb-10'>
+				{goals && goals.map((goal, i) => (
+					<GoalCard key={goal.id ?? i} index={i} goal={goal} />
 				))}
 			</section>
 		</main>
