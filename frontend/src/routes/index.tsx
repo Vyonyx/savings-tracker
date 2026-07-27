@@ -3,10 +3,19 @@ import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader } from '#/components/ui/card'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
+import goalsData from "../data/goals.json"
+import type { Goal } from '#/types'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({ 
+	loader: (): Goal[] => {
+		return goalsData as Goal[]
+	},
+	component: Home
+})
 
 function Home() {
+	const goals = Route.useLoaderData()
+
 	return (
 		<main className='container mx-auto'>
 			<section className='dashboard-statistics grid gap-4 grid-cols-4 my-10'>
@@ -49,8 +58,9 @@ function Home() {
 			</section>
 
 			<section className='dashboard-goals grid grid-cols-3 mt-4'>
-				{/* Loop through data here to populate goals */}
-				<GoalCard name="Macbook Pro M4" currentAmount={10} goalAmount={50} deadline="15 Sep 2026" />
+				{goals && goals.map((goal) => (
+					<GoalCard key={goal.id} goal={goal} />
+				))}
 			</section>
 		</main>
 	)

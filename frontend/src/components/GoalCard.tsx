@@ -1,20 +1,11 @@
 import { Progress } from "./ui/progress"
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
+import type { Goal } from "#/types"
 
-type Props = {
-	name: string
-	currentAmount: number
-	goalAmount: number
-	deadline?: string
-}
-
-export const GoalCard = ({
-	name,
-	currentAmount, 
-	goalAmount, 
-	deadline,
-}: Props) => {
-	const progressValue = Math.floor(currentAmount / goalAmount * 100)
+export const GoalCard = ({ goal }: {goal: Goal}) => {
+	const { name, goalAmount, deadline } = goal
+	// const progressValue = Math.floor(currentAmount / goalAmount * 100)
+	const progressValue = 70
 
 	return (
 		<Card className='col-span-2 bg-orange'>
@@ -26,7 +17,7 @@ export const GoalCard = ({
 			</CardContent>
 
 			<CardFooter className='flex items-center gap-4 text-xs'>
-				<p><span>${currentAmount}</span> of <span>${goalAmount}</span></p>
+				<p><span>CurrentAmount</span> of <span>${goalAmount}</span></p>
 				<span>{deadline ? 'Due ' + deadline : 'No deadline'}</span>
 			</CardFooter>
 		</Card>

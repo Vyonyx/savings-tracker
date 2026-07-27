@@ -1,0 +1,50 @@
+[
+	{
+		"id": 1,
+		"name": "Macbook Pro M4",
+		"goalAmount": 2499,
+		"deadline": "2027-05-15"
+	},
+	{
+		"id": 2,
+		"name": "Mechanical Keyboard",
+		"goalAmount": 350,
+		"deadline": "2027-03-15"
+	},
+	{
+		"id": 3,
+		"name": "React Conf Trip",
+		"goalAmount": 1800,
+		"deadline": "2027-05-15"
+	},
+	{
+		"id": 4,
+		"name": "Anniversary Trip to Italy",
+		"goalAmount": 4000,
+		"deadline": "2027-09-15"
+	},
+	{
+		"id": 5,
+		"name": "4K Monitor Upgrade",
+		"goalAmount": 600,
+		"deadline": "2027-04-30"
+	},
+	{
+		"id": 6,
+		"name": "Emergency Fund",
+		"goalAmount": 5000,
+		"deadline": null
+	},
+	{
+		"id": 7,
+		"name": "New Road Bike",
+		"goalAmount": 1500,
+		"deadline": "2027-05-01"
+	},
+	{
+		"id": 8,
+		"name": "Ergonomic Chair",
+		"goalAmount": 1200,
+		"deadline": "2027-08-01"
+	}
+]
