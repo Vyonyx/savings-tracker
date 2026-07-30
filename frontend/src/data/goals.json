@@ -3,48 +3,160 @@
 		"id": 1,
 		"name": "Macbook Pro M4",
 		"goalAmount": 2499,
-		"deadline": "2027-05-15"
+		"deadline": "2027-05-15",
+		"transactions": [
+			{
+				"id": 1,
+				"amount": 100,
+				"type": "deposit",
+				"date": "2026-09-01"
+			},
+			{
+				"id": 2,
+				"amount": 45,
+				"type": "deposit",
+				"date": "2026-09-10"
+			},
+			{
+				"id": 3,
+				"amount": 70,
+				"type": "deposit",
+				"date": "2026-09-10"
+			}
+		]
 	},
 	{
 		"id": 2,
 		"name": "Mechanical Keyboard",
 		"goalAmount": 350,
-		"deadline": "2027-03-15"
+		"deadline": "2027-03-15",
+		"transactions": [
+			{
+				"id": 4,
+				"amount": 20,
+				"type": "deposit",
+				"date": "2026-09-01"
+			}
+		]
 	},
 	{
 		"id": 3,
 		"name": "React Conf Trip",
 		"goalAmount": 1800,
-		"deadline": "2027-05-15"
+		"deadline": "2027-05-15",
+		"transactions": [
+			{
+				"id": 5,
+				"amount": 200,
+				"type": "deposit",
+				"date": "2026-09-01"
+			},
+			{
+				"id": 6,
+				"amount": 300,
+				"type": "deposit",
+				"date": "2026-09-10"
+			}
+		]
 	},
 	{
 		"id": 4,
 		"name": "Anniversary Trip to Italy",
 		"goalAmount": 4000,
-		"deadline": "2027-09-15"
+		"deadline": "2027-09-15",
+		"transactions": [
+			{
+				"id": 7,
+				"amount": 200,
+				"type": "deposit",
+				"date": "2026-09-01"
+			},
+			{
+				"id": 8,
+				"amount": 300,
+				"type": "deposit",
+				"date": "2026-09-10"
+			},
+			{
+				"id": 9,
+				"amount": 250,
+				"type": "deposit",
+				"date": "2026-09-20"
+			}
+		]
 	},
 	{
 		"id": 5,
 		"name": "4K Monitor Upgrade",
 		"goalAmount": 600,
-		"deadline": "2027-04-30"
+		"deadline": "2027-04-30",
+		"transactions": [
+			{
+				"id": 10,
+				"amount": 20,
+				"type": "deposit",
+				"date": "2026-09-01"
+			}
+		]
 	},
 	{
 		"id": 6,
 		"name": "Emergency Fund",
 		"goalAmount": 5000,
-		"deadline": null
+		"deadline": null,
+		"transactions": [
+			{
+				"id": 11,
+				"amount": 500,
+				"type": "deposit",
+				"date": "2026-09-01"
+			},
+			{
+				"id": 12,
+				"amount": 500,
+				"type": "deposit",
+				"date": "2026-09-15"
+			},
+			{
+				"id": 13,
+				"amount": 500,
+				"type": "deposit",
+				"date": "2026-09-30"
+			}
+		]
 	},
 	{
 		"id": 7,
 		"name": "New Road Bike",
 		"goalAmount": 1500,
-		"deadline": "2027-05-01"
+		"deadline": "2027-05-01",
+		"transactions": [
+			{
+				"id": 14,
+				"amount": 500,
+				"type": "deposit",
+				"date": "2026-09-01"
+			},
+			{
+				"id": 15,
+				"amount": 150,
+				"type": "withdrawal",
+				"date": "2026-09-14"
+			}
+		]
 	},
 	{
 		"id": 8,
 		"name": "Ergonomic Chair",
 		"goalAmount": 1200,
-		"deadline": "2027-08-01"
+		"deadline": "2027-08-01",
+		"transactions": [
+			{
+				"id": 16,
+				"amount": 150,
+				"type": "deposit",
+				"date": "2026-09-01"
+			}
+		]
 	}
 ]
