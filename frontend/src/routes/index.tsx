@@ -18,8 +18,8 @@ function Home() {
 
 	return (
 		<main className='container mx-auto px-8'>
-			<section className='dashboard-statistics grid gap-4 grid-cols-4 my-10'>
-				<Card className='col-span-2 bg-orange'>
+			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
+				<Card className='md:col-span-2 bg-orange'>
 					<CardHeader>Total savings</CardHeader>
 					<CardContent>
 						<span className='text-4xl'>$11,249.00</span>
@@ -40,7 +40,7 @@ function Home() {
 					</CardContent>
 				</Card>
 
-				<Card className='col-span-4 bg-zinc-800'>
+				<Card className='md:col-span-2 lg:col-span-4 bg-zinc-800'>
 					<CardHeader>Monthly deposits</CardHeader>
 					<CardContent>
 						<span className='text-4xl'>Graph goes here</span>
