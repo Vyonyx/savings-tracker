@@ -36,6 +36,12 @@
 				"amount": 20,
 				"type": "deposit",
 				"date": "2026-09-01"
+			},
+			{
+				"id": 9,
+				"amount": 330,
+				"type": "deposit",
+				"date": "2026-09-15"
 			}
 		]
 	},
@@ -149,14 +155,6 @@
 		"id": 8,
 		"name": "Ergonomic Chair",
 		"goalAmount": 1200,
-		"deadline": "2027-08-01",
-		"transactions": [
-			{
-				"id": 16,
-				"amount": 150,
-				"type": "deposit",
-				"date": "2026-09-01"
-			}
-		]
+		"deadline": "2027-08-01"
 	}
 ]

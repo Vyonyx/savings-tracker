@@ -1,6 +1,7 @@
 import { Progress } from "./ui/progress"
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
 import type { Goal } from "#/types"
+import clsx from "clsx"
 
 export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 	const { name, goalAmount, deadline, transactions } = goal
@@ -12,22 +13,23 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 	}, 0) : 0;
 
 	const progressValue = Math.floor(currentAmount / goalAmount * 100)
-
-	let cardStyling;
-	if ([0, 5].includes(index)) {
-		cardStyling = 'md:col-span-2'
-	} else if ([1, 4].includes(index)) {
-		cardStyling = 'lg:row-span-2'
-	}
-	cardStyling += [0, 5].includes(index) ? '  bg-orange' : ' bg-zinc-800'
+	const isOrangeCard = [0, 5].includes(index)
+	const status = progressValue === 100 ? "complete" : progressValue > 0 && progressValue < 100 && !isOrangeCard ? "progressed" : "default";
 
 	return (
-		<Card className={cardStyling}>
+		<Card className={clsx({
+			"md:col-span-2 bg-orange": isOrangeCard,
+			"bg-zinc-800": !isOrangeCard,
+			"lg:row-span-2": [1, 4].includes(index),
+		})}>
 			<CardHeader>{name}</CardHeader>
 
-			<CardContent>
-				<span className='text-4xl'>{progressValue}%</span>
-				<Progress value={progressValue}/>
+			<CardContent className="mt-auto">
+				<span className={ clsx('text-4xl block mb-2', {
+					"text-green-600": status === "complete",
+					"text-orange": status === "progressed",
+				})}>{progressValue}%</span>
+				<Progress value={progressValue} status={status} />
 			</CardContent>
 
 			<CardFooter className='flex items-center gap-4 text-xs'>
