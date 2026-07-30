@@ -39,14 +39,24 @@ function Home() {
 				<Card className='bg-zinc-800'>
 					<CardHeader>Active goals</CardHeader>
 					<CardContent>
-						<span className='text-4xl'>7</span>
+						<span className='text-4xl text-orange'>
+							{goals.reduce((total, goal) => {
+								if (goal.isComplete) return total
+								return total += 1
+							}, 0)}
+						</span>
 					</CardContent>
 				</Card>
 
 				<Card className='bg-zinc-800'>
 					<CardHeader>Goals completed</CardHeader>
 					<CardContent>
-						<span className='text-4xl'>2</span>
+						<span className='text-4xl text-green-600'>
+							{goals.reduce((total, goal) => {
+								if (!goal.isComplete) return total
+								return total += 1
+							}, 0)}
+						</span>
 					</CardContent>
 				</Card>
 

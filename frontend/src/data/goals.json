@@ -4,6 +4,7 @@
 		"name": "Macbook Pro M4",
 		"goalAmount": 2499,
 		"deadline": "2027-05-15",
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 1,
@@ -30,6 +31,7 @@
 		"name": "Mechanical Keyboard",
 		"goalAmount": 350,
 		"deadline": "2027-03-15",
+		"isComplete": true,
 		"transactions": [
 			{
 				"id": 4,
@@ -50,6 +52,7 @@
 		"name": "React Conf Trip",
 		"goalAmount": 1800,
 		"deadline": "2027-05-15",
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 5,
@@ -70,6 +73,7 @@
 		"name": "Anniversary Trip to Italy",
 		"goalAmount": 4000,
 		"deadline": "2027-09-15",
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 7,
@@ -96,6 +100,7 @@
 		"name": "4K Monitor Upgrade",
 		"goalAmount": 600,
 		"deadline": "2027-04-30",
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 10,
@@ -110,6 +115,7 @@
 		"name": "Emergency Fund",
 		"goalAmount": 5000,
 		"deadline": null,
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 11,
@@ -136,6 +142,7 @@
 		"name": "New Road Bike",
 		"goalAmount": 1500,
 		"deadline": "2027-05-01",
+		"isComplete": false,
 		"transactions": [
 			{
 				"id": 14,

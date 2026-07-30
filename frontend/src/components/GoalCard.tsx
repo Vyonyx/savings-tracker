@@ -4,7 +4,7 @@ import type { Goal } from "#/types"
 import clsx from "clsx"
 
 export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
-	const { name, goalAmount, deadline, transactions } = goal
+	const { name, goalAmount, deadline, isComplete, transactions } = goal
 
 	const currentAmount = transactions ? transactions.reduce((total, transaction) => {
 		if (transaction.type === "deposit") return total + transaction.amount
@@ -14,7 +14,8 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 
 	const progressValue = Math.floor(currentAmount / goalAmount * 100)
 	const isOrangeCard = [0, 5].includes(index)
-	const status = progressValue === 100 ? "complete" : progressValue > 0 && progressValue < 100 && !isOrangeCard ? "progressed" : "default";
+
+	const status = isComplete ? "complete" : progressValue > 0 && progressValue < 100 && !isOrangeCard ? "progressed" : "default";
 
 	return (
 		<Card className={clsx({
