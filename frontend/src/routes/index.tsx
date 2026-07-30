@@ -16,13 +16,23 @@ export const Route = createFileRoute('/')({
 function Home() {
 	const goals = Route.useLoaderData()
 
+	let totalSavings = 0;
+	goals?.forEach((goal) => {
+		if (!goal.transactions) return
+		const subtotal = goal.transactions.reduce((subtotal, transaction) => {
+			if (transaction.type === "withdrawal") return subtotal - transaction.amount
+			return subtotal + transaction.amount
+		}, 0)
+		totalSavings += subtotal
+	})
+
 	return (
 		<main className='container mx-auto px-8'>
 			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
 				<Card className='md:col-span-2 bg-orange'>
 					<CardHeader>Total savings</CardHeader>
 					<CardContent>
-						<span className='text-4xl'>$11,249.00</span>
+						<span className='text-4xl'>${new Intl.NumberFormat().format(totalSavings)}</span>
 					</CardContent>
 				</Card>
 
