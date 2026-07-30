@@ -33,7 +33,7 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 			</CardContent>
 
 			<CardFooter className='flex items-center gap-4 text-xs'>
-				<p><span>${currentAmount}</span> of <span>${goalAmount}</span></p>
+				<p><span>${new Intl.NumberFormat().format(currentAmount)}</span> of <span>${new Intl.NumberFormat().format(goalAmount)}</span></p>
 				<span>{deadline ? 'Due ' + deadline : 'No deadline'}</span>
 			</CardFooter>
 		</Card>
