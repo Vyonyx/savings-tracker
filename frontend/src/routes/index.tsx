@@ -29,7 +29,7 @@ function Home() {
 	return (
 		<main className='container mx-auto px-8'>
 			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
-				<Card className='md:col-span-2 bg-orange'>
+				<Card className='md:col-span-2 bg-linear-to-r from-dark-orange to-orange'>
 					<CardHeader className='card-heading--small'>Total savings</CardHeader>
 					<CardContent>
 						<span className='stat-number'>${new Intl.NumberFormat().format(totalSavings)}</span>
