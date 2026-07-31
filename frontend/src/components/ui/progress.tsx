@@ -6,7 +6,7 @@ import { cn } from "#/lib/utils.ts"
 const progressColours = {
 	default: {root: "bg-primary/20", indicator: "bg-primary"},
 	progressed: {root: "bg-primary/20", indicator: "bg-orange"},
-	complete: {root: "bg-primary/20", indicator: "bg-green-600"},
+	complete: {root: "bg-primary/20", indicator: "bg-green"},
 } as const
 
 	type ProgressStatus = keyof typeof progressColours;

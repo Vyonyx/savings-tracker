@@ -3,6 +3,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
 import type { Goal } from "#/types"
 import clsx from "clsx"
 import { Dot } from "lucide-react"
+import { Badge } from "./ui/badge"
 
 export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 	const { name, goalAmount, deadline, isComplete, transactions } = goal
@@ -24,11 +25,14 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 			"bg-zinc-800": !isOrangeCard,
 			"lg:row-span-2": [1, 4].includes(index),
 		})}>
-			<CardHeader className="card-heading--regular">{name}</CardHeader>
+			<CardHeader className="card-heading--regular flex justify-between align-center">
+				<span>{name}</span>
+				{isComplete && <Badge className="border-green text-green bg-green/10">Complete</Badge>}
+			</CardHeader>
 
 			<CardContent className="mt-auto">
 				<span className={ clsx('stat-number block mb-2', {
-					"text-green-600": status === "complete",
+					"text-green": status === "complete",
 					"text-orange": status === "progressed",
 				})}>{progressValue}%</span>
 				<Progress value={progressValue} status={status} />

@@ -51,7 +51,7 @@ function Home() {
 				<Card className='bg-zinc-800'>
 					<CardHeader className='card-heading--small'>Goals completed</CardHeader>
 					<CardContent>
-						<span className='stat-number text-green-600'>
+						<span className='stat-number text-green'>
 							{goals.reduce((total, goal) => {
 								if (!goal.isComplete) return total
 								return total += 1
