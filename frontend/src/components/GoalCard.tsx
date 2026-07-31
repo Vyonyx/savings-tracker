@@ -22,7 +22,7 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 	return (
 		<Card className={clsx({
 			"md:col-span-2 bg-linear-to-r from-dark-orange to-orange": isOrangeCard,
-			"bg-zinc-800": !isOrangeCard,
+			"bg-charcoal": !isOrangeCard,
 			"lg:row-span-2": [1, 4].includes(index),
 		})}>
 			<CardHeader className="card-heading--regular flex justify-between align-center">

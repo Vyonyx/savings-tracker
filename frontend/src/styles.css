@@ -8,6 +8,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+	--color-charcoal: #1F1F1F;
 	--color-orange: #FE5622;
 	--color-dark-orange: #BA2B0A;
 	--color-green: #41E178;
