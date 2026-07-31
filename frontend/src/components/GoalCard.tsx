@@ -2,6 +2,7 @@ import { Progress } from "./ui/progress"
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
 import type { Goal } from "#/types"
 import clsx from "clsx"
+import { Dot } from "lucide-react"
 
 export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 	const { name, goalAmount, deadline, isComplete, transactions } = goal
@@ -23,19 +24,20 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 			"bg-zinc-800": !isOrangeCard,
 			"lg:row-span-2": [1, 4].includes(index),
 		})}>
-			<CardHeader>{name}</CardHeader>
+			<CardHeader className="card-heading--regular">{name}</CardHeader>
 
 			<CardContent className="mt-auto">
-				<span className={ clsx('text-4xl block mb-2', {
+				<span className={ clsx('stat-number block mb-2', {
 					"text-green-600": status === "complete",
 					"text-orange": status === "progressed",
 				})}>{progressValue}%</span>
 				<Progress value={progressValue} status={status} />
 			</CardContent>
 
-			<CardFooter className='flex items-center gap-4 text-xs'>
+			<CardFooter className='flex items-center card-heading--small'>
 				<p><span>${new Intl.NumberFormat().format(currentAmount)}</span> of <span>${new Intl.NumberFormat().format(goalAmount)}</span></p>
-				<span>{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>
+				<Dot className="text-primary/50" />
+				<span className="text-primary/50">{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>
 			</CardFooter>
 		</Card>
 	)

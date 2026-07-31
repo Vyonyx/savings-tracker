@@ -30,16 +30,16 @@ function Home() {
 		<main className='container mx-auto px-8'>
 			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
 				<Card className='md:col-span-2 bg-orange'>
-					<CardHeader>Total savings</CardHeader>
+					<CardHeader className='card-heading--small'>Total savings</CardHeader>
 					<CardContent>
-						<span className='text-4xl'>${new Intl.NumberFormat().format(totalSavings)}</span>
+						<span className='stat-number'>${new Intl.NumberFormat().format(totalSavings)}</span>
 					</CardContent>
 				</Card>
 
 				<Card className='bg-zinc-800'>
-					<CardHeader>Active goals</CardHeader>
+					<CardHeader className='card-heading--small'>Active goals</CardHeader>
 					<CardContent>
-						<span className='text-4xl text-orange'>
+						<span className='stat-number text-orange'>
 							{goals.reduce((total, goal) => {
 								if (goal.isComplete) return total
 								return total += 1
@@ -49,9 +49,9 @@ function Home() {
 				</Card>
 
 				<Card className='bg-zinc-800'>
-					<CardHeader>Goals completed</CardHeader>
+					<CardHeader className='card-heading--small'>Goals completed</CardHeader>
 					<CardContent>
-						<span className='text-4xl text-green-600'>
+						<span className='stat-number text-green-600'>
 							{goals.reduce((total, goal) => {
 								if (!goal.isComplete) return total
 								return total += 1
@@ -61,9 +61,9 @@ function Home() {
 				</Card>
 
 				<Card className='md:col-span-2 lg:col-span-4 bg-zinc-800'>
-					<CardHeader>Monthly deposits</CardHeader>
+					<CardHeader className='card-heading--regular'>Monthly deposits</CardHeader>
 					<CardContent>
-						<span className='text-4xl'>Graph goes here</span>
+						<span className='text-2xl'>Graph goes here</span>
 					</CardContent>
 				</Card>
 			</section>
