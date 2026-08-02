@@ -5,6 +5,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
 import goalsData from "../data/goals.json"
 import type { Goal } from '#/types'
+import DepositsBarChart from '#/components/ui/DepositsBarChart'
 
 export const Route = createFileRoute('/')({ 
 	loader: (): Goal[] => {
@@ -63,7 +64,7 @@ function Home() {
 				<Card className='md:col-span-2 lg:col-span-4 bg-charcoal'>
 					<CardHeader className='card-heading--regular'>Monthly deposits</CardHeader>
 					<CardContent>
-						<span className='text-2xl'>Graph goes here</span>
+						<DepositsBarChart goals={goals} />
 					</CardContent>
 				</Card>
 			</section>
