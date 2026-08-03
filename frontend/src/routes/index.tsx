@@ -6,6 +6,8 @@ import { ArrowUpDown, ListFilter } from 'lucide-react'
 import goalsData from "../data/goals.json"
 import type { Goal } from '#/types'
 import DepositsBarChart from '#/components/ui/DepositsBarChart'
+import { useState } from 'react'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 
 export const Route = createFileRoute('/')({ 
 	loader: (): Goal[] => {
@@ -17,8 +19,10 @@ export const Route = createFileRoute('/')({
 function Home() {
 	const goals = Route.useLoaderData()
 
+	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals)
+
 	let totalSavings = 0;
-	goals?.forEach((goal) => {
+	goals.forEach((goal) => {
 		if (!goal.transactions) return
 		const subtotal = goal.transactions.reduce((subtotal, transaction) => {
 			if (transaction.type === "withdrawal") return subtotal - transaction.amount
@@ -26,6 +30,34 @@ function Home() {
 		}, 0)
 		totalSavings += subtotal
 	})
+
+	const calculateGoalTotalDeposits = (goal: Goal) => {
+		const total = goal.transactions?.reduce((sum, t) => {
+			if (t.type === "withdrawal") return sum -= t.amount
+			return sum += t.amount
+		}, 0)
+		return total ?? 0
+	}
+
+	const filterGoals = (status: "all" | "no-progress" | "in-progress" | "complete") => {
+		switch (status) {
+			case "all":
+				setVisibleGoals(goals)
+				break;
+			case "no-progress":
+				const unprogressedGoals = goals.filter(goal => calculateGoalTotalDeposits(goal) === 0)
+				setVisibleGoals(unprogressedGoals)
+				break;
+			case "in-progress":
+				const progressedGoals = goals.filter(goal => calculateGoalTotalDeposits(goal) > 0 && !goal.isComplete)
+				setVisibleGoals(progressedGoals)
+				break;
+			case "complete": 
+				const completeGoals = goals.filter(goal => goal.isComplete)
+				setVisibleGoals(completeGoals)
+				break;
+		}
+	}
 
 	return (
 		<main className='container mx-auto px-8'>
@@ -73,13 +105,26 @@ function Home() {
 				<h3 className='text-3xl'>Your goals</h3>
 
 				<div className='flex gap-4 items-center'>
-					<Button variant='secondary' size='lg'><ListFilter /> Filters</Button>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant='secondary' size='lg'><ListFilter /> Filters</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuGroup>
+								<DropdownMenuItem onClick={() => filterGoals("all")}>Show All</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => filterGoals("no-progress")}>No Progress</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => filterGoals("in-progress")}>In Progressed</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => filterGoals("complete")}>Complete</DropdownMenuItem>
+							</DropdownMenuGroup>
+						</DropdownMenuContent>
+					</DropdownMenu>
+
 					<Button variant='secondary' size='lg'><ArrowUpDown /> Sort by</Button>
 				</div>
 			</section>
 
 			<section className='dashboard-goals grid md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-4 mt-4 gap-4 mb-10'>
-				{goals && goals.map((goal, i) => (
+				{visibleGoals && visibleGoals.map((goal, i) => (
 					<GoalCard key={goal.id ?? i} index={i} goal={goal} />
 				))}
 			</section>
