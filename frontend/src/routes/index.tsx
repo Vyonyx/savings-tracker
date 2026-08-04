@@ -59,6 +59,28 @@ function Home() {
 		}
 	}
 
+	function sortGoals(type: "default" | "deadline" | "progress" | "amount-saved" | "alphabetical") {
+		switch (type) {
+			case "default":
+				/* Add createdAt attribute to goals to use here */
+				break;
+			case "deadline":
+				const sortedGoals = [...visibleGoals].sort((a, b) => {
+					if (!a.deadline) return -1
+					if (!b.deadline) return 1
+					return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
+				})
+				setVisibleGoals(sortedGoals)
+				break;
+			case "progress":
+				break;
+			case "amount-saved":
+				break;
+			case "alphabetical":
+				break;
+		}
+	}
+
 	return (
 		<main className='container mx-auto px-8'>
 			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
@@ -119,7 +141,20 @@ function Home() {
 						</DropdownMenuContent>
 					</DropdownMenu>
 
-					<Button variant='secondary' size='lg'><ArrowUpDown /> Sort by</Button>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant='secondary' size='lg'><ArrowUpDown /> Sort by</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuGroup>
+								<DropdownMenuItem onClick={() => sortGoals("default")}>Default</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("deadline")}>Deadline</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("progress")}>Progress</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("amount-saved")}>Amount Saved</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("alphabetical")}>Alphabetical</DropdownMenuItem>
+							</DropdownMenuGroup>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</section>
 
