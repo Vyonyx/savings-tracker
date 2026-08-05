@@ -66,8 +66,8 @@ function Home() {
 				break;
 			case "deadline":
 				const deadlineSort = [...visibleGoals].sort((a, b) => {
-					if (!a.deadline) return -1
-					if (!b.deadline) return 1
+					if (!a.deadline) return 1
+					if (!b.deadline) return -1
 					return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
 				})
 				setVisibleGoals(deadlineSort)
