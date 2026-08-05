@@ -59,22 +59,26 @@ function Home() {
 		}
 	}
 
-	function sortGoals(type: "default" | "deadline" | "progress" | "amount-saved" | "alphabetical") {
+	const sortGoals = (type: "default" | "deadline" | "progress" | "amount-saved" | "alphabetical") => {
 		switch (type) {
 			case "default":
 				/* Add createdAt attribute to goals to use here */
 				break;
 			case "deadline":
-				const sortedGoals = [...visibleGoals].sort((a, b) => {
+				const deadlineSort = [...visibleGoals].sort((a, b) => {
 					if (!a.deadline) return -1
 					if (!b.deadline) return 1
 					return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
 				})
-				setVisibleGoals(sortedGoals)
+				setVisibleGoals(deadlineSort)
 				break;
 			case "progress":
+				const progressSort = [...visibleGoals].sort((a, b) => (calculateGoalTotalDeposits(b) / b.goalAmount ) - (calculateGoalTotalDeposits(a) / a.goalAmount))
+				setVisibleGoals(progressSort)
 				break;
 			case "amount-saved":
+				const amountSavedSort = [...visibleGoals].sort((a, b) => calculateGoalTotalDeposits(b) - calculateGoalTotalDeposits(a))
+				setVisibleGoals(amountSavedSort)
 				break;
 			case "alphabetical":
 				break;
