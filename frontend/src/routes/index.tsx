@@ -59,7 +59,7 @@ function Home() {
 		}
 	}
 
-	const sortGoals = (type: "date-asc" | "date-desc" | "deadline" | "progress" | "amount-saved" | "alphabetical") => {
+	const sortGoals = (type: "date-asc" | "date-desc" | "deadline" | "progress" | "amount-saved" | "name-asc" | "name-desc") => {
 		switch (type) {
 			case "date-asc":
 				const dateAscSort = [...visibleGoals].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
@@ -85,7 +85,13 @@ function Home() {
 				const amountSavedSort = [...visibleGoals].sort((a, b) => calculateGoalTotalDeposits(b) - calculateGoalTotalDeposits(a))
 				setVisibleGoals(amountSavedSort)
 				break;
-			case "alphabetical":
+			case "name-asc":
+				const nameAscSort = [...visibleGoals].sort((a, b) => a.name[0].toLowerCase().charCodeAt(0) - b.name[0].toLowerCase().charCodeAt(0))
+				setVisibleGoals(nameAscSort)
+				break;
+			case "name-desc":
+				const nameDescSort = [...visibleGoals].sort((a, b) => b.name[0].toLowerCase().charCodeAt(0) - a.name[0].toLowerCase().charCodeAt(0))
+				setVisibleGoals(nameDescSort)
 				break;
 		}
 	}
@@ -161,7 +167,8 @@ function Home() {
 								<DropdownMenuItem onClick={() => sortGoals("deadline")}>Deadline</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("progress")}>Progress</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("amount-saved")}>Amount Saved</DropdownMenuItem>
-								<DropdownMenuItem onClick={() => sortGoals("alphabetical")}>Alphabetical</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("name-asc")}>Name (ASC)</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("name-desc")}>Name (DESC)</DropdownMenuItem>
 							</DropdownMenuGroup>
 						</DropdownMenuContent>
 					</DropdownMenu>
