@@ -164,11 +164,11 @@ function Home() {
 							<DropdownMenuGroup>
 								<DropdownMenuItem onClick={() => sortGoals("date-asc")}>Date (ASC)</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("date-desc")}>Date (DESC)</DropdownMenuItem>
-								<DropdownMenuItem onClick={() => sortGoals("deadline")}>Deadline</DropdownMenuItem>
-								<DropdownMenuItem onClick={() => sortGoals("progress")}>Progress</DropdownMenuItem>
-								<DropdownMenuItem onClick={() => sortGoals("amount-saved")}>Amount Saved</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("name-asc")}>Name (ASC)</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("name-desc")}>Name (DESC)</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("deadline")}>Deadline</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("amount-saved")}>Amount Saved</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("progress")}>Progress</DropdownMenuItem>
 							</DropdownMenuGroup>
 						</DropdownMenuContent>
 					</DropdownMenu>
