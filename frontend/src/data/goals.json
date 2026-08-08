@@ -5,6 +5,7 @@
 		"goalAmount": 2499,
 		"deadline": "2027-05-15",
 		"isComplete": false,
+		"createdAt": "2026-05-01",
 		"transactions": [
 			{
 				"id": 1,
@@ -32,6 +33,7 @@
 		"goalAmount": 350,
 		"deadline": "2027-03-15",
 		"isComplete": true,
+		"createdAt": "2026-05-02",
 		"transactions": [
 			{
 				"id": 4,
@@ -53,6 +55,7 @@
 		"goalAmount": 1800,
 		"deadline": "2027-06-15",
 		"isComplete": false,
+		"createdAt": "2026-05-03",
 		"transactions": [
 			{
 				"id": 5,
@@ -74,6 +77,7 @@
 		"goalAmount": 4000,
 		"deadline": "2027-09-15",
 		"isComplete": false,
+		"createdAt": "2026-05-04",
 		"transactions": [
 			{
 				"id": 7,
@@ -101,6 +105,7 @@
 		"goalAmount": 600,
 		"deadline": "2027-12-30",
 		"isComplete": false,
+		"createdAt": "2026-05-05",
 		"transactions": [
 			{
 				"id": 10,
@@ -116,6 +121,7 @@
 		"goalAmount": 5000,
 		"deadline": null,
 		"isComplete": false,
+		"createdAt": "2026-05-06",
 		"transactions": [
 			{
 				"id": 11,
@@ -143,6 +149,7 @@
 		"goalAmount": 1500,
 		"deadline": "2027-05-01",
 		"isComplete": false,
+		"createdAt": "2026-05-07",
 		"transactions": [
 			{
 				"id": 14,
@@ -162,6 +169,7 @@
 		"id": 8,
 		"name": "Ergonomic Chair",
 		"goalAmount": 1200,
-		"deadline": "2027-08-01"
+		"deadline": "2027-08-01",
+		"createdAt": "2026-05-08"
 	}
 ]
