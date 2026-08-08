@@ -62,7 +62,8 @@ function Home() {
 	const sortGoals = (type: "default" | "deadline" | "progress" | "amount-saved" | "alphabetical") => {
 		switch (type) {
 			case "default":
-				/* Add createdAt attribute to goals to use here */
+				const createdAtSort = [...visibleGoals].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+				setVisibleGoals(createdAtSort)
 				break;
 			case "deadline":
 				const deadlineSort = [...visibleGoals].sort((a, b) => {

@@ -11,5 +11,6 @@ export type Goal = {
 	goalAmount: number
 	deadline?: string
 	isComplete: boolean
+	createdAt: string
 	transactions?: Transaction[]
 }
