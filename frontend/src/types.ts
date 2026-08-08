@@ -14,3 +14,9 @@ export type Goal = {
 	createdAt: string
 	transactions?: Transaction[]
 }
+
+export type NewGoal = {
+	name: string
+	goalAmount: number
+	deadline?: string
+}
