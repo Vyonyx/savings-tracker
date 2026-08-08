@@ -59,11 +59,15 @@ function Home() {
 		}
 	}
 
-	const sortGoals = (type: "default" | "deadline" | "progress" | "amount-saved" | "alphabetical") => {
+	const sortGoals = (type: "date-asc" | "date-desc" | "deadline" | "progress" | "amount-saved" | "alphabetical") => {
 		switch (type) {
-			case "default":
-				const createdAtSort = [...visibleGoals].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-				setVisibleGoals(createdAtSort)
+			case "date-asc":
+				const dateAscSort = [...visibleGoals].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+				setVisibleGoals(dateAscSort)
+				break;
+			case "date-desc":
+				const dateDescSort = [...visibleGoals].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+				setVisibleGoals(dateDescSort)
 				break;
 			case "deadline":
 				const deadlineSort = [...visibleGoals].sort((a, b) => {
@@ -152,7 +156,8 @@ function Home() {
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
 							<DropdownMenuGroup>
-								<DropdownMenuItem onClick={() => sortGoals("default")}>Default</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("date-asc")}>Date (ASC)</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => sortGoals("date-desc")}>Date (DESC)</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("deadline")}>Deadline</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("progress")}>Progress</DropdownMenuItem>
 								<DropdownMenuItem onClick={() => sortGoals("amount-saved")}>Amount Saved</DropdownMenuItem>
