@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NewRouteImport } from './routes/new'
+import { Route as EditGoalIDRouteImport } from './routes/edit.$goalID'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const NewRoute = NewRouteImport.update({
   path: '/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditGoalIDRoute = EditGoalIDRouteImport.update({
+  id: '/edit/$goalID',
+  path: '/edit/$goalID',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -32,30 +38,34 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/new': typeof NewRoute
+  '/edit/$goalID': typeof EditGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/new': typeof NewRoute
+  '/edit/$goalID': typeof EditGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/new': typeof NewRoute
+  '/edit/$goalID': typeof EditGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/new' | '/api/auth/$'
+  fullPaths: '/' | '/new' | '/edit/$goalID' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/new' | '/api/auth/$'
-  id: '__root__' | '/' | '/new' | '/api/auth/$'
+  to: '/' | '/new' | '/edit/$goalID' | '/api/auth/$'
+  id: '__root__' | '/' | '/new' | '/edit/$goalID' | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   NewRoute: typeof NewRoute
+  EditGoalIDRoute: typeof EditGoalIDRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/edit/$goalID': {
+      id: '/edit/$goalID'
+      path: '/edit/$goalID'
+      fullPath: '/edit/$goalID'
+      preLoaderRoute: typeof EditGoalIDRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   NewRoute: NewRoute,
+  EditGoalIDRoute: EditGoalIDRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

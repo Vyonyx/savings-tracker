@@ -10,7 +10,7 @@ function NewGoal() {
 
 	return (
 		<main className='container mx-auto px-8 flex justify-center pt-16 lg:pt-30'>
-			<GoalForm heading='New Goal' />
+			<GoalForm heading='New Goal' submitText="Add" />
 		</main>
 	)
 }

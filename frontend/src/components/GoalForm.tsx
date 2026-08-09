@@ -3,17 +3,19 @@ import { Button } from "./ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { FieldSet, FieldGroup, Field, FieldLabel } from "./ui/field"
 import { Input } from "./ui/input"
-import type { NewGoal } from "#/types"
+import type { Goal, NewGoal } from "#/types"
 
 type Props = {
 	heading: string
+	goal?: Goal
+	submitText: string
 }
 
-function GoalForm({ heading }: Props) {
+function GoalForm({ heading, goal, submitText }: Props) {
 	const [newGoal, setNewGoal] = useState<NewGoal>({
-		name: "",
-		goalAmount: 0,
-		deadline: "",
+		name: goal?.name ?? "",
+		goalAmount: goal?.goalAmount ?? 0,
+		deadline: goal?.deadline ?? "",
 	})
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +53,7 @@ function GoalForm({ heading }: Props) {
 									</Field>
 
 									<Field className='w-40 mx-auto mt-4'>
-										<Button variant="orange" size="lg" type="submit">Add</Button>
+										<Button variant="orange" size="lg" type="submit">{submitText}</Button>
 									</Field>
 								</FieldGroup>
 							</FieldSet>
