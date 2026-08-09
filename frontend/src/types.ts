@@ -1,5 +1,5 @@
 export type Transaction = {
-	id?: number
+	id: number
 	amount: number
 	type: "deposit" | "withdrawal"
 	date: string
