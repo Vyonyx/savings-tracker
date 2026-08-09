@@ -6,7 +6,7 @@ export type Transaction = {
 }
 
 export type Goal = {
-	id?: number
+	id: number
 	name: string
 	goalAmount: number
 	deadline?: string
