@@ -1,8 +1,15 @@
+export type TransactionType = "deposit" | "withdrawal"
+
 export type Transaction = {
 	id: number
 	amount: number
-	type: "deposit" | "withdrawal"
+	type: TransactionType
 	date: string
+}
+
+export type NewTransaction = {
+	amount: number
+	type: TransactionType
 }
 
 export type Goal = {
