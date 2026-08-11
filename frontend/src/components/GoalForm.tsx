@@ -1,9 +1,10 @@
-import { useState, type ChangeEvent } from "react"
+import { useState } from "react"
 import { Button } from "./ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { FieldSet, FieldGroup, Field, FieldLabel } from "./ui/field"
 import { Input } from "./ui/input"
 import type { Goal, NewGoal } from "#/types"
+import { handleInputChange } from "#/lib/utils"
 
 type Props = {
 	heading: string
@@ -18,14 +19,6 @@ function GoalForm({ heading, goal, submitText }: Props) {
 		deadline: goal?.deadline ?? "",
 	})
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const id = e.target.id
-		const value = e.target.value
-		setNewGoal((prev) => {
-			return {...prev, [id]: value}
-		})
-	}
-
   return (
 			<Card className='w-full lg:w-6/12'>
 				<CardHeader>
@@ -39,17 +32,17 @@ function GoalForm({ heading, goal, submitText }: Props) {
 								<FieldGroup>
 									<Field>
 										<FieldLabel htmlFor='name'>Name</FieldLabel>
-										<Input id='name' type="text" placeholder="Name" value={newGoal.name} onChange={handleChange} />
+										<Input id='name' type="text" placeholder="Name" value={newGoal.name} onChange={(e) => handleInputChange(e, setNewGoal)} />
 									</Field>
 
 									<Field>
 										<FieldLabel htmlFor='goalAmount'>Goal Amount</FieldLabel>
-										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={handleChange} />
+										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={(e) => handleInputChange(e, setNewGoal)} />
 									</Field>
 
 									<Field>
 										<FieldLabel htmlFor='deadline'>Deadline</FieldLabel>
-										<Input id='deadline' type="text" placeholder="2026-01-02" value={newGoal.deadline} onChange={handleChange} />
+										<Input id='deadline' type="text" placeholder="2026-01-02" value={newGoal.deadline} onChange={(e) => handleInputChange(e, setNewGoal)} />
 									</Field>
 
 									<Field className='w-40 mx-auto mt-4'>
