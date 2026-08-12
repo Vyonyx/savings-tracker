@@ -6,7 +6,7 @@ type Props = {
 	transaction: Transaction
 }
 
-function Transaction({ transaction }: Props) {
+function TransactionCard({ transaction }: Props) {
 	const { amount, type, date } = transaction
 	return (
 		<li className="flex justify-between items-center border-b border-b-primary/25 py-4">
@@ -21,4 +21,4 @@ function Transaction({ transaction }: Props) {
 	)
 }
 
-export default Transaction
+export default TransactionCard

@@ -1,4 +1,4 @@
-import Transaction from '#/components/Transaction'
+import TransactionCard from '#/components/Transaction'
 import { Button } from '#/components/ui/button'
 import { Field, FieldGroup, FieldLabel, FieldSet } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
@@ -76,7 +76,7 @@ function GoalOverview() {
 
 			{transactions ? (
 				<ul className='w-full lg:w-9/12'>
-					{transactions.map((t) => <Transaction key={t.id} transaction={t} />)}
+					{transactions.map((t) => <TransactionCard key={t.id} transaction={t} />)}
 				</ul>
 			) : (
 					<h2 className='text-2xl'>No transactions yet.</h2>
