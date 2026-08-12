@@ -7,21 +7,19 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { authClient } from "@/lib/auth-client"; //import the auth client
 
-export const Route = createFileRoute('/sign-up')({
-	component: Signup,
+export const Route = createFileRoute('/_guest/sign-in')({
+	component: SignIn,
 })
 
-type SignupDetails = {
-	name: string
+type SignInDetails = {
 	email: string
 	password: string
 }
 
-function Signup() {
+function SignIn() {
 	const navigate = useNavigate()
 	const [loading, setLoading] = useState(false)
-	const [details, setDetails] = useState<SignupDetails>({
-		name: "",
+	const [details, setDetails] = useState<SignInDetails>({
 		email: "",
 		password: "",
 	})
@@ -29,7 +27,7 @@ function Signup() {
 	const handleSubmit = async (e: React.SubmitEvent) => {
 		e.preventDefault()
 
-		await authClient.signUp.email({
+		await authClient.signIn.email({
 			...details
 		}, {
 				onRequest: () => {
@@ -48,7 +46,7 @@ function Signup() {
 	}
 
 	if (loading) return (
-	<h1 className='text-2xl text-center mt-10'>Loading...</h1>
+		<h1 className='text-2xl text-center mt-10'>Loading...</h1>
 	)
 
 	return (
@@ -56,7 +54,7 @@ function Signup() {
 			<Card className='w-full lg:w-6/12'>
 				<CardHeader>
 					<CardTitle>
-						<h1 className='text-2xl text-center'>Sign Up</h1>
+						<h1 className='text-2xl text-center'>Sign In</h1>
 					</CardTitle>
 				</CardHeader>
 
@@ -64,11 +62,6 @@ function Signup() {
 					<form onSubmit={handleSubmit}>
 						<FieldSet>
 							<FieldGroup>
-								<Field>
-									<FieldLabel htmlFor='name'>Name</FieldLabel>
-									<Input id='name' type='text' value={details.name} onChange={(e) => handleInputChange(e, setDetails)} />
-								</Field>
-
 								<Field>
 									<FieldLabel htmlFor='email'>Email</FieldLabel>
 									<Input id='email' type='email' value={details.email} onChange={(e) => handleInputChange(e, setDetails)} />
@@ -80,7 +73,7 @@ function Signup() {
 								</Field>
 
 								<Field className='w-40 mx-auto mt-4'>
-									<Button variant="orange" size="lg" type="submit">Sign Up</Button>
+									<Button variant="orange" size="lg" type="submit">Sign In</Button>
 								</Field>
 							</FieldGroup>
 						</FieldSet>

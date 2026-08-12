@@ -10,9 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuestRouteImport } from './routes/_guest'
 import { Route as NewRouteImport } from './routes/new'
-import { Route as SignInRouteImport } from './routes/sign-in'
-import { Route as SignUpRouteImport } from './routes/sign-up'
+import { Route as GuestSignInRouteImport } from './routes/_guest.sign-in'
+import { Route as GuestSignUpRouteImport } from './routes/_guest.sign-up'
 import { Route as EditGoalIDRouteImport } from './routes/edit.$goalID'
 import { Route as OverviewGoalIDRouteImport } from './routes/overview.$goalID'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -22,20 +23,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuestRoute = GuestRouteImport.update({
+  id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewRoute = NewRouteImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignInRoute = SignInRouteImport.update({
+const GuestSignInRoute = GuestSignInRouteImport.update({
   id: '/sign-in',
   path: '/sign-in',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => GuestRoute,
 } as any)
-const SignUpRoute = SignUpRouteImport.update({
+const GuestSignUpRoute = GuestSignUpRouteImport.update({
   id: '/sign-up',
   path: '/sign-up',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => GuestRoute,
 } as any)
 const EditGoalIDRoute = EditGoalIDRouteImport.update({
   id: '/edit/$goalID',
@@ -56,8 +61,8 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/new': typeof NewRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
+  '/sign-in': typeof GuestSignInRoute
+  '/sign-up': typeof GuestSignUpRoute
   '/edit/$goalID': typeof EditGoalIDRoute
   '/overview/$goalID': typeof OverviewGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -65,8 +70,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/new': typeof NewRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
+  '/sign-in': typeof GuestSignInRoute
+  '/sign-up': typeof GuestSignUpRoute
   '/edit/$goalID': typeof EditGoalIDRoute
   '/overview/$goalID': typeof OverviewGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -74,9 +79,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_guest': typeof GuestRouteWithChildren
   '/new': typeof NewRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
+  '/_guest/sign-in': typeof GuestSignInRoute
+  '/_guest/sign-up': typeof GuestSignUpRoute
   '/edit/$goalID': typeof EditGoalIDRoute
   '/overview/$goalID': typeof OverviewGoalIDRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -103,9 +109,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_guest'
     | '/new'
-    | '/sign-in'
-    | '/sign-up'
+    | '/_guest/sign-in'
+    | '/_guest/sign-up'
     | '/edit/$goalID'
     | '/overview/$goalID'
     | '/api/auth/$'
@@ -113,9 +120,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GuestRoute: typeof GuestRouteWithChildren
   NewRoute: typeof NewRoute
-  SignInRoute: typeof SignInRoute
-  SignUpRoute: typeof SignUpRoute
   EditGoalIDRoute: typeof EditGoalIDRoute
   OverviewGoalIDRoute: typeof OverviewGoalIDRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -130,6 +136,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof GuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/new': {
       id: '/new'
       path: '/new'
@@ -137,19 +150,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sign-in': {
-      id: '/sign-in'
+    '/_guest/sign-in': {
+      id: '/_guest/sign-in'
       path: '/sign-in'
       fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof GuestSignInRouteImport
+      parentRoute: typeof GuestRoute
     }
-    '/sign-up': {
-      id: '/sign-up'
+    '/_guest/sign-up': {
+      id: '/_guest/sign-up'
       path: '/sign-up'
       fullPath: '/sign-up'
-      preLoaderRoute: typeof SignUpRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof GuestSignUpRouteImport
+      parentRoute: typeof GuestRoute
     }
     '/edit/$goalID': {
       id: '/edit/$goalID'
@@ -175,11 +188,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface GuestRouteChildren {
+  GuestSignInRoute: typeof GuestSignInRoute
+  GuestSignUpRoute: typeof GuestSignUpRoute
+}
+
+const GuestRouteChildren: GuestRouteChildren = {
+  GuestSignInRoute: GuestSignInRoute,
+  GuestSignUpRoute: GuestSignUpRoute,
+}
+
+const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GuestRoute: GuestRouteWithChildren,
   NewRoute: NewRoute,
-  SignInRoute: SignInRoute,
-  SignUpRoute: SignUpRoute,
   EditGoalIDRoute: EditGoalIDRoute,
   OverviewGoalIDRoute: OverviewGoalIDRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
