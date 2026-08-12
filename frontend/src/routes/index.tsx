@@ -1,15 +1,21 @@
 import GoalCard from '#/components/GoalCard'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader } from '#/components/ui/card'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
 import goalsData from "../data/goals.json"
 import type { Goal } from '#/types'
 import DepositsBarChart from '#/components/ui/DepositsBarChart'
 import { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
+import { authClient } from '#/lib/auth-client'
 
 export const Route = createFileRoute('/')({ 
+	beforeLoad: async () => {
+		const { data: session } = await authClient.getSession()
+		if (!session) throw redirect(({ to: "/sign-in" }))
+		return { session }
+	},
 	loader: (): Goal[] => {
 		return goalsData as Goal[]
 	},
