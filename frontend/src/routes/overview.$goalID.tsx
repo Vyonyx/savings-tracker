@@ -1,3 +1,4 @@
+import Transaction from '#/components/Transaction'
 import { Button } from '#/components/ui/button'
 import { Field, FieldGroup, FieldLabel, FieldSet } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
@@ -28,7 +29,7 @@ function GoalOverview() {
 
 	const currentAmount = calculateCurrentAmountFromTransactions(transactions)
 	return (
-		<main className='container mx-auto px-8 flex flex-col items-center gap-y-8 pt-10'>
+		<main className='container mx-auto px-8 flex flex-col items-center gap-y-10 pt-10'>
 			<div className='text-center flex flex-col gap-4'>
 				<h1 className='text-4xl'>{name}</h1>
 				<div className='card-heading--regular flex justify-center items-center'>
@@ -72,6 +73,14 @@ function GoalOverview() {
 					</FieldGroup>
 				</FieldSet>
 			</form>
+
+			{transactions ? (
+				<ul className='w-full lg:w-9/12'>
+					{transactions.map((t) => <Transaction key={t.id} transaction={t} />)}
+				</ul>
+			) : (
+					<h2 className='text-2xl'>No transactions yet.</h2>
+				)}
 		</main>
 	)
 }
