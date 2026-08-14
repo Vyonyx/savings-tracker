@@ -10,7 +10,7 @@ const Header = () => {
 				</Link>
 
 				<Button asChild variant="orange" size="lg">
-					<Link to="/new">
+					<Link to="/goals/new">
 						<Plus /> New Goal
 					</Link>
 				</Button>

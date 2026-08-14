@@ -2,7 +2,7 @@ import GoalForm from '#/components/GoalForm'
 import { goals } from '#/data/goals'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/edit/$goalID')({
+export const Route = createFileRoute('/_auth/goals/$goalID/edit')({
 	component: EditGoal,
 	loader: (({params}) => {
 		let goal = goals.find((goal) => goal.id === parseInt(params.goalID))

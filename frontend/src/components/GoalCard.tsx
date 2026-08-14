@@ -42,8 +42,8 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 				<span className="text-primary/50">{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>
 
 				<div className="ms-auto flex items-center gap-1">
-				<Link to="/overview/$goalID" params={{goalID: id.toString()}}><Plus className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
-				<Link to="/edit/$goalID" params={{goalID: id.toString()}}><SquarePen className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
+				<Link to="/goals/$goalID" params={{goalID: id.toString()}}><Plus className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
+				<Link to="/goals/$goalID/edit" params={{goalID: id.toString()}}><SquarePen className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
 				</div>
 			</CardFooter>
 		</Card>

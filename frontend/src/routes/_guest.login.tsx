@@ -7,7 +7,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { authClient } from "@/lib/auth-client"; //import the auth client
 
-export const Route = createFileRoute('/_guest/sign-in')({
+export const Route = createFileRoute('/_guest/login')({
 	component: SignIn,
 })
 

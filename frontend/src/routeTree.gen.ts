@@ -10,120 +10,157 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as GuestRouteImport } from './routes/_guest'
-import { Route as NewRouteImport } from './routes/new'
-import { Route as GuestSignInRouteImport } from './routes/_guest.sign-in'
-import { Route as GuestSignUpRouteImport } from './routes/_guest.sign-up'
-import { Route as EditGoalIDRouteImport } from './routes/edit.$goalID'
-import { Route as OverviewGoalIDRouteImport } from './routes/overview.$goalID'
+import { Route as AuthGoalsRouteRouteImport } from './routes/_auth.goals.route'
+import { Route as GuestLoginRouteImport } from './routes/_guest.login'
+import { Route as GuestSignupRouteImport } from './routes/_guest.signup'
+import { Route as AuthGoalsIndexRouteImport } from './routes/_auth.goals.index'
+import { Route as AuthGoalsGoalIDRouteRouteImport } from './routes/_auth.goals.$goalID.route'
+import { Route as AuthGoalsNewRouteImport } from './routes/_auth.goals.new'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AuthGoalsGoalIDIndexRouteImport } from './routes/_auth.goals.$goalID.index'
+import { Route as AuthGoalsGoalIDEditRouteImport } from './routes/_auth.goals.$goalID.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuestRoute = GuestRouteImport.update({
   id: '/_guest',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewRoute = NewRouteImport.update({
+const AuthGoalsRouteRoute = AuthGoalsRouteRouteImport.update({
+  id: '/goals',
+  path: '/goals',
+  getParentRoute: () => AuthRoute,
+} as any)
+const GuestLoginRoute = GuestLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => GuestRoute,
+} as any)
+const GuestSignupRoute = GuestSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => GuestRoute,
+} as any)
+const AuthGoalsIndexRoute = AuthGoalsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthGoalsRouteRoute,
+} as any)
+const AuthGoalsGoalIDRouteRoute = AuthGoalsGoalIDRouteRouteImport.update({
+  id: '/$goalID',
+  path: '/$goalID',
+  getParentRoute: () => AuthGoalsRouteRoute,
+} as any)
+const AuthGoalsNewRoute = AuthGoalsNewRouteImport.update({
   id: '/new',
   path: '/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuestSignInRoute = GuestSignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => GuestRoute,
-} as any)
-const GuestSignUpRoute = GuestSignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => GuestRoute,
-} as any)
-const EditGoalIDRoute = EditGoalIDRouteImport.update({
-  id: '/edit/$goalID',
-  path: '/edit/$goalID',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OverviewGoalIDRoute = OverviewGoalIDRouteImport.update({
-  id: '/overview/$goalID',
-  path: '/overview/$goalID',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthGoalsRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthGoalsGoalIDIndexRoute = AuthGoalsGoalIDIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthGoalsGoalIDRouteRoute,
+} as any)
+const AuthGoalsGoalIDEditRoute = AuthGoalsGoalIDEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => AuthGoalsGoalIDRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/new': typeof NewRoute
-  '/sign-in': typeof GuestSignInRoute
-  '/sign-up': typeof GuestSignUpRoute
-  '/edit/$goalID': typeof EditGoalIDRoute
-  '/overview/$goalID': typeof OverviewGoalIDRoute
+  '/goals': typeof AuthGoalsRouteRouteWithChildren
+  '/login': typeof GuestLoginRoute
+  '/signup': typeof GuestSignupRoute
+  '/goals/$goalID': typeof AuthGoalsGoalIDRouteRouteWithChildren
+  '/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/goals/': typeof AuthGoalsIndexRoute
+  '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/goals/$goalID/': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/new': typeof NewRoute
-  '/sign-in': typeof GuestSignInRoute
-  '/sign-up': typeof GuestSignUpRoute
-  '/edit/$goalID': typeof EditGoalIDRoute
-  '/overview/$goalID': typeof OverviewGoalIDRoute
+  '/login': typeof GuestLoginRoute
+  '/signup': typeof GuestSignupRoute
+  '/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/goals': typeof AuthGoalsIndexRoute
+  '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/goals/$goalID': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/_guest': typeof GuestRouteWithChildren
-  '/new': typeof NewRoute
-  '/_guest/sign-in': typeof GuestSignInRoute
-  '/_guest/sign-up': typeof GuestSignUpRoute
-  '/edit/$goalID': typeof EditGoalIDRoute
-  '/overview/$goalID': typeof OverviewGoalIDRoute
+  '/_auth/goals': typeof AuthGoalsRouteRouteWithChildren
+  '/_guest/login': typeof GuestLoginRoute
+  '/_guest/signup': typeof GuestSignupRoute
+  '/_auth/goals/$goalID': typeof AuthGoalsGoalIDRouteRouteWithChildren
+  '/_auth/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_auth/goals/': typeof AuthGoalsIndexRoute
+  '/_auth/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/_auth/goals/$goalID/': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/new'
-    | '/sign-in'
-    | '/sign-up'
-    | '/edit/$goalID'
-    | '/overview/$goalID'
+    | '/goals'
+    | '/login'
+    | '/signup'
+    | '/goals/$goalID'
+    | '/goals/new'
     | '/api/auth/$'
+    | '/goals/'
+    | '/goals/$goalID/edit'
+    | '/goals/$goalID/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/new'
-    | '/sign-in'
-    | '/sign-up'
-    | '/edit/$goalID'
-    | '/overview/$goalID'
+    | '/login'
+    | '/signup'
+    | '/goals/new'
     | '/api/auth/$'
+    | '/goals'
+    | '/goals/$goalID/edit'
+    | '/goals/$goalID'
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/_guest'
-    | '/new'
-    | '/_guest/sign-in'
-    | '/_guest/sign-up'
-    | '/edit/$goalID'
-    | '/overview/$goalID'
+    | '/_auth/goals'
+    | '/_guest/login'
+    | '/_guest/signup'
+    | '/_auth/goals/$goalID'
+    | '/_auth/goals/new'
     | '/api/auth/$'
+    | '/_auth/goals/'
+    | '/_auth/goals/$goalID/edit'
+    | '/_auth/goals/$goalID/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   GuestRoute: typeof GuestRouteWithChildren
-  NewRoute: typeof NewRoute
-  EditGoalIDRoute: typeof EditGoalIDRoute
-  OverviewGoalIDRoute: typeof OverviewGoalIDRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -136,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_guest': {
       id: '/_guest'
       path: ''
@@ -143,40 +187,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/new': {
-      id: '/new'
+    '/_auth/goals': {
+      id: '/_auth/goals'
+      path: '/goals'
+      fullPath: '/goals'
+      preLoaderRoute: typeof AuthGoalsRouteRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_guest/login': {
+      id: '/_guest/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof GuestLoginRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/_guest/signup': {
+      id: '/_guest/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof GuestSignupRouteImport
+      parentRoute: typeof GuestRoute
+    }
+    '/_auth/goals/': {
+      id: '/_auth/goals/'
+      path: '/'
+      fullPath: '/goals/'
+      preLoaderRoute: typeof AuthGoalsIndexRouteImport
+      parentRoute: typeof AuthGoalsRouteRoute
+    }
+    '/_auth/goals/$goalID': {
+      id: '/_auth/goals/$goalID'
+      path: '/$goalID'
+      fullPath: '/goals/$goalID'
+      preLoaderRoute: typeof AuthGoalsGoalIDRouteRouteImport
+      parentRoute: typeof AuthGoalsRouteRoute
+    }
+    '/_auth/goals/new': {
+      id: '/_auth/goals/new'
       path: '/new'
-      fullPath: '/new'
-      preLoaderRoute: typeof NewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_guest/sign-in': {
-      id: '/_guest/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof GuestSignInRouteImport
-      parentRoute: typeof GuestRoute
-    }
-    '/_guest/sign-up': {
-      id: '/_guest/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof GuestSignUpRouteImport
-      parentRoute: typeof GuestRoute
-    }
-    '/edit/$goalID': {
-      id: '/edit/$goalID'
-      path: '/edit/$goalID'
-      fullPath: '/edit/$goalID'
-      preLoaderRoute: typeof EditGoalIDRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/overview/$goalID': {
-      id: '/overview/$goalID'
-      path: '/overview/$goalID'
-      fullPath: '/overview/$goalID'
-      preLoaderRoute: typeof OverviewGoalIDRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/goals/new'
+      preLoaderRoute: typeof AuthGoalsNewRouteImport
+      parentRoute: typeof AuthGoalsRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -185,27 +236,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/goals/$goalID/': {
+      id: '/_auth/goals/$goalID/'
+      path: '/'
+      fullPath: '/goals/$goalID/'
+      preLoaderRoute: typeof AuthGoalsGoalIDIndexRouteImport
+      parentRoute: typeof AuthGoalsGoalIDRouteRoute
+    }
+    '/_auth/goals/$goalID/edit': {
+      id: '/_auth/goals/$goalID/edit'
+      path: '/edit'
+      fullPath: '/goals/$goalID/edit'
+      preLoaderRoute: typeof AuthGoalsGoalIDEditRouteImport
+      parentRoute: typeof AuthGoalsGoalIDRouteRoute
+    }
   }
 }
 
+interface AuthGoalsGoalIDRouteRouteChildren {
+  AuthGoalsGoalIDEditRoute: typeof AuthGoalsGoalIDEditRoute
+  AuthGoalsGoalIDIndexRoute: typeof AuthGoalsGoalIDIndexRoute
+}
+
+const AuthGoalsGoalIDRouteRouteChildren: AuthGoalsGoalIDRouteRouteChildren = {
+  AuthGoalsGoalIDEditRoute: AuthGoalsGoalIDEditRoute,
+  AuthGoalsGoalIDIndexRoute: AuthGoalsGoalIDIndexRoute,
+}
+
+const AuthGoalsGoalIDRouteRouteWithChildren =
+  AuthGoalsGoalIDRouteRoute._addFileChildren(AuthGoalsGoalIDRouteRouteChildren)
+
+interface AuthGoalsRouteRouteChildren {
+  AuthGoalsGoalIDRouteRoute: typeof AuthGoalsGoalIDRouteRouteWithChildren
+  AuthGoalsNewRoute: typeof AuthGoalsNewRoute
+  AuthGoalsIndexRoute: typeof AuthGoalsIndexRoute
+}
+
+const AuthGoalsRouteRouteChildren: AuthGoalsRouteRouteChildren = {
+  AuthGoalsGoalIDRouteRoute: AuthGoalsGoalIDRouteRouteWithChildren,
+  AuthGoalsNewRoute: AuthGoalsNewRoute,
+  AuthGoalsIndexRoute: AuthGoalsIndexRoute,
+}
+
+const AuthGoalsRouteRouteWithChildren = AuthGoalsRouteRoute._addFileChildren(
+  AuthGoalsRouteRouteChildren,
+)
+
+interface AuthRouteChildren {
+  AuthGoalsRouteRoute: typeof AuthGoalsRouteRouteWithChildren
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthGoalsRouteRoute: AuthGoalsRouteRouteWithChildren,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface GuestRouteChildren {
-  GuestSignInRoute: typeof GuestSignInRoute
-  GuestSignUpRoute: typeof GuestSignUpRoute
+  GuestLoginRoute: typeof GuestLoginRoute
+  GuestSignupRoute: typeof GuestSignupRoute
 }
 
 const GuestRouteChildren: GuestRouteChildren = {
-  GuestSignInRoute: GuestSignInRoute,
-  GuestSignUpRoute: GuestSignUpRoute,
+  GuestLoginRoute: GuestLoginRoute,
+  GuestSignupRoute: GuestSignupRoute,
 }
 
 const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   GuestRoute: GuestRouteWithChildren,
-  NewRoute: NewRoute,
-  EditGoalIDRoute: EditGoalIDRoute,
-  OverviewGoalIDRoute: OverviewGoalIDRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

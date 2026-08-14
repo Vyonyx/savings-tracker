@@ -10,7 +10,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { Dot } from 'lucide-react'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/overview/$goalID')({
+export const Route = createFileRoute('/_auth/goals/$goalID/')({
 	component: GoalOverview,
 	loader: (({params}) => {
 		const goal = goals.find((goal) => goal.id === parseInt(params.goalID))
