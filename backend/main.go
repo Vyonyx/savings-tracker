@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/vyonyx/savings-tracker/backend/controllers"
 	"github.com/vyonyx/savings-tracker/backend/initializers"
 	"github.com/vyonyx/savings-tracker/backend/middleware"
 )
@@ -39,6 +40,8 @@ func main() {
 
 		ctx.Status(http.StatusNotFound)
 	})
+
+	auth.POST("/goals", controllers.AddGoal)
 
 	router.Run(os.Getenv("PORT"))
 }

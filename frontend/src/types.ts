@@ -8,7 +8,7 @@ export type Transaction = {
 }
 
 export type NewTransaction = {
-	amount: number
+	amount: string
 	type: TransactionType
 }
 
@@ -24,6 +24,6 @@ export type Goal = {
 
 export type NewGoal = {
 	name: string
-	goalAmount: number
+	goalAmount: string
 	deadline?: string
 }
