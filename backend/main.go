@@ -4,8 +4,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/vyonyx/savings-tracker/backend/initializers"
+	"github.com/vyonyx/savings-tracker/backend/middleware"
 )
 
 func init() {
@@ -16,10 +18,25 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	router.GET("/ping", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
+
+	auth := router.Group("/", middleware.AuthMiddleware(initializers.DB))
+
+	auth.GET("/me", func(ctx *gin.Context) {
+		user, exists := ctx.Get("user")
+		if exists {
+			ctx.JSON(http.StatusOK, gin.H{
+				"user": user,
+			})
+			return
+		}
+
+		ctx.Status(http.StatusNotFound)
 	})
 
 	router.Run(os.Getenv("PORT"))

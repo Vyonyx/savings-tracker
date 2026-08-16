@@ -9,6 +9,7 @@ import DepositsBarChart from '#/components/ui/DepositsBarChart'
 import { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { authClient } from '#/lib/auth-client'
+import { useQuery } from '@tanstack/react-query'
 
 export const Route = createFileRoute('/_auth/goals/')({ 
 	beforeLoad: async () => {
@@ -19,11 +20,27 @@ export const Route = createFileRoute('/_auth/goals/')({
 	loader: (): Goal[] => {
 		return goalsData as Goal[]
 	},
-	component: Home
+	component: Goals
 })
 
-function Home() {
+function Goals() {
 	const goals = Route.useLoaderData()
+
+	const { data } = useQuery({
+		queryKey: ["goals"],
+		queryFn: async () => {
+			const url = import.meta.env.VITE_SERVER + "/me"
+			const res = await fetch(url, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("bearer-token")}`,
+				},
+			})
+			if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+			return res.json()
+		},
+	})
+
+	console.log("me", data)
 
 	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals)
 
