@@ -54,7 +54,7 @@ function SignIn() {
 			<Card className='w-full lg:w-6/12'>
 				<CardHeader>
 					<CardTitle>
-						<h1 className='text-2xl text-center'>Sign In</h1>
+						<h1 className='text-2xl text-center'>Login</h1>
 					</CardTitle>
 				</CardHeader>
 
@@ -73,7 +73,7 @@ function SignIn() {
 								</Field>
 
 								<Field className='w-40 mx-auto mt-4'>
-									<Button variant="orange" size="lg" type="submit">Sign In</Button>
+									<Button variant="orange" size="lg" type="submit">Login</Button>
 								</Field>
 							</FieldGroup>
 						</FieldSet>
