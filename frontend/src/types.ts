@@ -4,7 +4,7 @@ export type Transaction = {
 	id: number
 	amount: number
 	type: TransactionType
-	date: string
+	createdAt: string
 }
 
 export type NewTransaction = {

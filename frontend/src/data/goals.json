@@ -11,19 +11,19 @@
 				"id": 1,
 				"amount": 100,
 				"type": "deposit",
-				"date": "2026-01-01"
+				"createdAt": "2026-01-01"
 			},
 			{
 				"id": 2,
 				"amount": 45,
 				"type": "deposit",
-				"date": "2026-02-10"
+				"createdAt": "2026-02-10"
 			},
 			{
 				"id": 3,
 				"amount": 70,
 				"type": "deposit",
-				"date": "2026-03-10"
+				"createdAt": "2026-03-10"
 			}
 		]
 	},
@@ -39,13 +39,13 @@
 				"id": 4,
 				"amount": 20,
 				"type": "deposit",
-				"date": "2026-04-01"
+				"createdAt": "2026-04-01"
 			},
 			{
 				"id": 9,
 				"amount": 330,
 				"type": "deposit",
-				"date": "2026-05-15"
+				"createdAt": "2026-05-15"
 			}
 		]
 	},
@@ -61,13 +61,13 @@
 				"id": 5,
 				"amount": 200,
 				"type": "deposit",
-				"date": "2026-07-01"
+				"createdAt": "2026-07-01"
 			},
 			{
 				"id": 6,
 				"amount": 300,
 				"type": "deposit",
-				"date": "2026-08-10"
+				"createdAt": "2026-08-10"
 			}
 		]
 	},
@@ -83,19 +83,19 @@
 				"id": 7,
 				"amount": 200,
 				"type": "deposit",
-				"date": "2026-09-01"
+				"createdAt": "2026-09-01"
 			},
 			{
 				"id": 8,
 				"amount": 300,
 				"type": "deposit",
-				"date": "2026-10-10"
+				"createdAt": "2026-10-10"
 			},
 			{
 				"id": 9,
 				"amount": 250,
 				"type": "deposit",
-				"date": "2026-11-20"
+				"createdAt": "2026-11-20"
 			}
 		]
 	},
@@ -111,7 +111,7 @@
 				"id": 10,
 				"amount": 20,
 				"type": "deposit",
-				"date": "2026-01-01"
+				"createdAt": "2026-01-01"
 			}
 		]
 	},
@@ -127,19 +127,19 @@
 				"id": 11,
 				"amount": 500,
 				"type": "deposit",
-				"date": "2026-02-01"
+				"createdAt": "2026-02-01"
 			},
 			{
 				"id": 12,
 				"amount": 500,
 				"type": "deposit",
-				"date": "2026-03-15"
+				"createdAt": "2026-03-15"
 			},
 			{
 				"id": 13,
 				"amount": 500,
 				"type": "deposit",
-				"date": "2026-04-30"
+				"createdAt": "2026-04-30"
 			}
 		]
 	},
@@ -155,13 +155,13 @@
 				"id": 14,
 				"amount": 500,
 				"type": "deposit",
-				"date": "2026-06-01"
+				"createdAt": "2026-06-01"
 			},
 			{
 				"id": 15,
 				"amount": 150,
 				"type": "withdrawal",
-				"date": "2026-07-14"
+				"createdAt": "2026-07-14"
 			}
 		]
 	},

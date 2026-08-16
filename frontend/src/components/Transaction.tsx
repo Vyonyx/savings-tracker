@@ -7,7 +7,7 @@ type Props = {
 }
 
 function TransactionCard({ transaction }: Props) {
-	const { amount, type, date } = transaction
+	const { amount, type, createdAt: date } = transaction
 	return (
 		<li className="flex justify-between items-center border-b border-b-primary/25 py-4">
 			<div className={
