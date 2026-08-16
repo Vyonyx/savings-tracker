@@ -5,7 +5,7 @@ export const Route = createFileRoute('/_guest')({
 	beforeLoad: async () => {
 		const { data: session } = await authClient.getSession()
 		if (session) {
-			throw redirect({ to: "/" })
+			throw redirect({ to: "/goals" })
 		}
 	},
 	component: () => <Outlet />,
