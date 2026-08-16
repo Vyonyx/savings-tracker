@@ -1,5 +1,5 @@
 import { betterAuth } from 'better-auth'
-import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { bearer } from 'better-auth/plugins'
 import { Pool } from 'pg'
 
 export const auth = betterAuth({
@@ -9,5 +9,5 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [tanstackStartCookies()],
+  plugins: [bearer()],
 })
