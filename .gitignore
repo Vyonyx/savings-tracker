@@ -12,3 +12,6 @@ frontend/.output
 frontend/.vinxi
 frontend/__unconfig*
 frontend/todos.json
+
+backend/backend
+backend/.env
