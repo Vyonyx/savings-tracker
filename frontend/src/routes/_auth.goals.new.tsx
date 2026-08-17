@@ -11,12 +11,16 @@ function NewGoal() {
 	const { data: session } = authClient.useSession()
 
 	const newGoalMutationFn = (newGoal: NewGoal) => {
-		let dateString;
+		const body = {
+			...newGoal,
+			goalAmount: parseInt(newGoal.goalAmount),
+			userId: session?.user.id,
+		}
 
 		if (newGoal.deadline) {
-			dateString = new Date(newGoal.deadline).toISOString()
+			body.deadline = new Date(newGoal.deadline).toISOString()
 		} else {
-			dateString = new Date().toISOString()
+			delete body.deadline
 		}
 
 		return fetch(import.meta.env.VITE_SERVER + "/goals", {
@@ -25,12 +29,7 @@ function NewGoal() {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${localStorage.getItem("bearer-token")}`
 			},
-			body: JSON.stringify({
-				...newGoal,
-				goalAmount: parseInt(newGoal.goalAmount),
-				deadline: dateString,
-				userId: session?.user.id,
-			})
+			body: JSON.stringify(body)
 		})
 	}
 

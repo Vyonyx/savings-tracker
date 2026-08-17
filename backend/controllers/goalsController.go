@@ -12,7 +12,7 @@ import (
 type NewGoal struct {
 	Name string
 	GoalAmount int
-	Deadline time.Time
+	Deadline *time.Time
 	IsComplete bool
 	UserID string
 }
@@ -31,13 +31,18 @@ func AddGoal(ctx *gin.Context) {
 	userVal, _ := ctx.Get("user")
 	user, _ := userVal.(*models.User)
 
-	initializers.DB.Create(&models.Goal{
+	entry := models.Goal{
 		Name: newGoal.Name,
 		GoalAmount: newGoal.GoalAmount,
-		Deadline: newGoal.Deadline,
 		IsComplete: false,
 		UserID: user.ID,
-	})
+	}
+
+	if newGoal.Deadline != nil {
+		entry.Deadline = newGoal.Deadline
+	}
+
+	initializers.DB.Create(&entry)
 }
 
 func GetGoals(ctx *gin.Context) {

@@ -16,7 +16,7 @@ export type Goal = {
 	id: number
 	name: string
 	goalAmount: number
-	deadline?: string
+	deadline: string | null
 	isComplete: boolean
 	createdAt: string
 	transactions?: Transaction[]

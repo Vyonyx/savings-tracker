@@ -5,7 +5,8 @@ import { FieldSet, FieldGroup, Field, FieldLabel } from "./ui/field"
 import { Input } from "./ui/input"
 import type { Goal, NewGoal } from "#/types"
 import { handleInputChange } from "#/lib/utils"
-import { useMutation, type MutationFunction } from "@tanstack/react-query"
+import { useMutation, useQueryClient, type MutationFunction } from "@tanstack/react-query"
+import { useNavigate } from "@tanstack/react-router"
 
 type Props = {
 	heading: string
@@ -17,12 +18,22 @@ type Props = {
 function GoalForm({ heading, goal, submitText, mutationFn }: Props) {
 	const [newGoal, setNewGoal] = useState<NewGoal>({
 		name: goal?.name ?? "",
-		goalAmount: goal?.goalAmount ?? 0,
+		goalAmount: goal?.goalAmount.toString() ?? "",
 		deadline: goal?.deadline ?? "",
 	})
 
+	const queryClient = useQueryClient()
+	const navigate = useNavigate()
+
 	const mutation = useMutation({
-		mutationFn
+		mutationFn,
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: ["goals"] })
+			navigate({ to: "/goals" })
+		},
+		onError: (error) => {
+			console.error("Failed to create goal: ", error)
+		},
 	})
 
 	const handleSubmit = (e: React.SubmitEvent) => {

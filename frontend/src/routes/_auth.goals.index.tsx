@@ -5,7 +5,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
 import type { Goal } from '#/types'
 import DepositsBarChart from '#/components/ui/DepositsBarChart'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { authClient } from '#/lib/auth-client'
 import { useQuery } from '@tanstack/react-query'
@@ -28,6 +28,10 @@ function Goals() {
 	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals ?? [])
 
 	if (!goals) return <h1>Loading...</h1>
+
+	useEffect(() => {
+		setVisibleGoals(goals)
+	}, [goals])
 
 	let totalSavings = 0;
 	goals?.forEach((goal) => {
