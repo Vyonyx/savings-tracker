@@ -39,3 +39,20 @@ func AddGoal(ctx *gin.Context) {
 		UserID: user.ID,
 	})
 }
+
+func GetGoals(ctx *gin.Context) {
+	userVal, _ := ctx.Get("user")
+	user, _ := userVal.(*models.User)
+	var goals []models.Goal
+
+	tx := initializers.DB.Where("user_id = ?", user.ID).Find(&goals)
+
+	if tx.Error != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": tx.Error.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, goals)
+}

@@ -3,13 +3,13 @@ import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader } from '#/components/ui/card'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { ArrowUpDown, ListFilter } from 'lucide-react'
-import goalsData from "../data/goals.json"
 import type { Goal } from '#/types'
 import DepositsBarChart from '#/components/ui/DepositsBarChart'
 import { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { authClient } from '#/lib/auth-client'
 import { useQuery } from '@tanstack/react-query'
+import { goalsQueryOptions } from '#/lib/queries/goals'
 
 export const Route = createFileRoute('/_auth/goals/')({ 
 	beforeLoad: async () => {
@@ -17,35 +17,20 @@ export const Route = createFileRoute('/_auth/goals/')({
 		if (!session) throw redirect(({ to: "/signup" }))
 		return { session }
 	},
-	loader: (): Goal[] => {
-		return goalsData as Goal[]
+	loader: ({ context }) => {
+		context.queryClient.ensureQueryData(goalsQueryOptions)
 	},
 	component: Goals
 })
 
 function Goals() {
-	const goals = Route.useLoaderData()
+	const { data: goals } = useQuery(goalsQueryOptions)
+	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals ?? [])
 
-	const { data } = useQuery({
-		queryKey: ["goals"],
-		queryFn: async () => {
-			const url = import.meta.env.VITE_SERVER + "/me"
-			const res = await fetch(url, {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("bearer-token")}`,
-				},
-			})
-			if (!res.ok) throw new Error(`Request failed: ${res.status}`)
-			return res.json()
-		},
-	})
-
-	console.log("me", data)
-
-	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals)
+	if (!goals) return <h1>Loading...</h1>
 
 	let totalSavings = 0;
-	goals.forEach((goal) => {
+	goals?.forEach((goal) => {
 		if (!goal.transactions) return
 		const subtotal = goal.transactions.reduce((subtotal, transaction) => {
 			if (transaction.type === "withdrawal") return subtotal - transaction.amount

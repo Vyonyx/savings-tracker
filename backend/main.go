@@ -42,6 +42,7 @@ func main() {
 	})
 
 	auth.POST("/goals", controllers.AddGoal)
+	auth.GET("/goals", controllers.GetGoals)
 
 	router.Run(os.Getenv("PORT"))
 }
