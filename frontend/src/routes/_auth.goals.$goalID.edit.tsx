@@ -1,24 +1,24 @@
 import GoalForm from '#/components/GoalForm'
 import { authClient } from '#/lib/auth-client'
 import { singleGoalQueryOptions } from '#/lib/queries/goals'
-import type { NewGoal } from '#/types'
+import type { GoalFormData } from '#/types'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/edit')({
-	component: EditGoal,
+	component: EditGoalForm,
 	loader: (({ context, params }) => {
 		context.queryClient.ensureQueryData(singleGoalQueryOptions(parseInt(params.goalID)))
 	})
 })
 
-function EditGoal() {
+function EditGoalForm() {
 	const { data: session } = authClient.useSession()
 	const { goalID } = Route.useParams()
 	const { data: goal } = useQuery(singleGoalQueryOptions(parseInt(goalID)))
 
 	/* TODO: Change this to edit mutation */
-	const newGoalMutationFn = (newGoal: NewGoal) => {
+	const newGoalMutationFn = (newGoal: GoalFormData) => {
 		let dateString;
 
 		if (newGoal.deadline) {

@@ -1,24 +1,24 @@
 import GoalForm from '#/components/GoalForm'
 import { authClient } from '#/lib/auth-client'
-import type { NewGoal } from '#/types'
+import type { GoalFormData, NewGoalBody } from '#/types'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/goals/new')({
-	component: NewGoal,
+	component: NewGoalForm,
 })
 
-function NewGoal() {
+function NewGoalForm() {
 	const { data: session } = authClient.useSession()
 
-	const newGoalMutationFn = (newGoal: NewGoal) => {
-		const body = {
-			...newGoal,
+	const newGoalMutationFn = (newGoal: GoalFormData) => {
+		const body: NewGoalBody = {
+			name: newGoal.name,
 			goalAmount: parseInt(newGoal.goalAmount),
 			userId: session?.user.id,
 		}
 
 		if (newGoal.deadline) {
-			body.deadline = new Date(newGoal.deadline).toISOString()
+			body.deadline = newGoal.deadline.toISOString()
 		} else {
 			delete body.deadline
 		}

@@ -22,8 +22,15 @@ export type Goal = {
 	transactions?: Transaction[]
 }
 
-export type NewGoal = {
+export type GoalFormData = {
 	name: string
 	goalAmount: string
+	deadline?: Date
+}
+
+export type NewGoalBody = {
+	name: string
+	goalAmount: number
 	deadline?: string
+	userId?: string
 }
