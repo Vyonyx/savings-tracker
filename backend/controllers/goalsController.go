@@ -28,8 +28,7 @@ func AddGoal(ctx *gin.Context) {
 		return
 	}
 
-	userVal, _ := ctx.Get("user")
-	user, _ := userVal.(*models.User)
+	user := getUser(ctx)
 
 	entry := models.Goal{
 		Name: newGoal.Name,
@@ -46,8 +45,7 @@ func AddGoal(ctx *gin.Context) {
 }
 
 func GetGoals(ctx *gin.Context) {
-	userVal, _ := ctx.Get("user")
-	user, _ := userVal.(*models.User)
+	user := getUser(ctx)
 	var goals []models.Goal
 
 	tx := initializers.DB.Where("user_id = ?", user.ID).Find(&goals)
@@ -60,4 +58,26 @@ func GetGoals(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, goals)
+}
+
+func GetGoal(ctx *gin.Context) {
+	user := getUser(ctx)
+	goalID := ctx.Param("goalID")
+	var goal models.Goal
+
+	tx := initializers.DB.Where("user_id = ?", user.ID).Where("id = ?", goalID).First(&goal)
+
+	if tx.Error != nil || tx.RowsAffected == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": tx.Error.Error(),
+		})
+	}
+
+	ctx.JSON(http.StatusOK, goal)
+}
+
+func getUser(ctx *gin.Context) *models.User {
+	userVal, _ := ctx.Get("user")
+	user, _ := userVal.(*models.User)
+	return user
 }

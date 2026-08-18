@@ -13,3 +13,16 @@ export const goalsQueryOptions = queryOptions({
 		return res.json()
 	},
 })
+
+export const singleGoalQueryOptions = (goalID: number) => queryOptions({
+	queryKey: ["goals", goalID],
+	queryFn: async (): Promise<Goal> => {
+		const res = await fetch(import.meta.env.VITE_SERVER + `/goals/${goalID}`, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("bearer-token")}`,
+			},
+		})
+		if (!res.ok) throw new Error(`Faild to fetch goal id ${goalID}: ${res.status}`)
+		return res.json()
+	},
+})

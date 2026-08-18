@@ -3,27 +3,29 @@ import { Button } from '#/components/ui/button'
 import { Field, FieldGroup, FieldLabel, FieldSet } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '#/components/ui/select'
-import { goals } from '#/data/goals'
+import { singleGoalQueryOptions } from '#/lib/queries/goals'
 import { calculateCurrentAmountFromTransactions, handleInputChange } from '#/lib/utils'
 import type { NewTransaction, TransactionType } from '#/types'
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
 import { Dot } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/')({
 	component: GoalOverview,
-	loader: (({params}) => {
-		const goal = goals.find((goal) => goal.id === parseInt(params.goalID))
-		if (!goal) throw redirect({to: "/"})
-		return goal
+	loader: (({ context, params }) => {
+		context.queryClient.ensureQueryData(singleGoalQueryOptions(parseInt(params.goalID)))
 	})
 })
 
 function GoalOverview() {
-	const {name, goalAmount, deadline, transactions} = Route.useLoaderData()
+	const { goalID } = Route.useParams()
+	const { data: goal } = useQuery(singleGoalQueryOptions(parseInt(goalID)))
+	if (!goal) return <h1>No Goal Found.</h1>
+	const {name, goalAmount, deadline, transactions} = goal
 
 	const [newTransaction, setNewTransaction] = useState<NewTransaction>({
-		amount: 0,
+		amount: "",
 		type: "deposit",
 	})
 
