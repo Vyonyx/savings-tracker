@@ -16,16 +16,25 @@ export type Goal = {
 	id: number
 	name: string
 	goalAmount: number
-	deadline: string | null
+	deadline?: string | null
 	isComplete: boolean
 	createdAt: string
 	transactions?: Transaction[]
 }
 
-export type GoalFormData = {
+export type NewGoalFormData = {
 	name: string
 	goalAmount: string
 	deadline?: Date
+}
+
+export type UpdateGoalFormData = {
+	id: number
+	name: string
+	goalAmount: string
+	deadline?: Date
+	isComplete: boolean
+	createdAt: string
 }
 
 export type NewGoalBody = {
