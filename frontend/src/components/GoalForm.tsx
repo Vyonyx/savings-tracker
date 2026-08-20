@@ -15,7 +15,7 @@ type Props = {
 	heading: string
 	goal?: Goal
 	submitText: string
-	mutationFn: MutationFunction<Response, GoalFormData>
+	mutationFn: MutationFunction<Response, GoalFormData> | MutationFunction<Response>
 }
 
 function GoalForm({ heading, goal, submitText, mutationFn }: Props) {

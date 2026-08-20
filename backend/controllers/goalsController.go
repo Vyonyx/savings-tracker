@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -74,6 +75,29 @@ func GetGoal(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, goal)
+}
+
+func EditGoal(ctx *gin.Context) {
+	user := getUser(ctx)
+	var goal models.Goal
+
+	err := ctx.ShouldBind(&goal)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": fmt.Sprintf("Error editing goal: %s", err.Error()),
+		})
+		return
+	}
+
+	tx := initializers.DB.Where("user_id", user.ID).Save(goal)
+	if tx.Error != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": fmt.Sprintf("Could not update goal %d: %s", goal.ID, tx.Error.Error()),
+		})
+		return
+	}
+
+	ctx.Status(http.StatusOK)
 }
 
 func getUser(ctx *gin.Context) *models.User {
