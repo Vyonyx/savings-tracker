@@ -9,7 +9,7 @@ import type { NewTransactionFormData, TransactionType } from '#/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Dot } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/')({
 	component: GoalOverview,
@@ -27,13 +27,13 @@ function GoalOverview() {
 	const {name, goalAmount, deadline, transactions} = goal
 
 	const [newTransaction, setNewTransaction] = useState<NewTransactionFormData>({
-		amount: "",
+		amount: 0,
 		type: "deposit",
 	})
 
 	const mutation = useMutation({
 		mutationFn: async (newTransaction: NewTransactionFormData) => {
-			const body = {...newTransaction, amount: parseInt(newTransaction.amount), goalId: goal.id}
+			const body = {...newTransaction, amount: newTransaction.amount, goalId: goal.id}
 			await fetch(import.meta.env.VITE_SERVER + "/transactions", {
 				method: "POST",
 				headers: {
@@ -52,7 +52,7 @@ function GoalOverview() {
 		},
 	})
 
-	const handleFormSubmit = (e: FormEvent) => {
+	const handleFormSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault()
 		mutation.mutate(newTransaction)
 	}
@@ -74,7 +74,7 @@ function GoalOverview() {
 					<FieldGroup className='flex flex-col md:flex-row items-center md:items-end gap-y-6 gap-x-4'>
 						<Field>
 							<FieldLabel htmlFor="amount">Amount</FieldLabel>
-							<Input id="amount" type="text" value={newTransaction.amount} onChange={(e) => handleInputChange(e, setNewTransaction)} />
+							<Input id="amount" type="text" value={newTransaction.amount} onChange={(e) => handleInputChange(e, setNewTransaction, true)} />
 						</Field>
 
 						<Field>

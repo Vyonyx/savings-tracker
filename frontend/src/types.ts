@@ -10,11 +10,6 @@ export type Transaction = {
 	goalId?: number
 }
 
-export type NewTransactionFormData = {
-	amount: string
-	type: TransactionType
-}
-
 export type Goal = {
 	id: number
 	name: string
@@ -25,24 +20,16 @@ export type Goal = {
 	transactions?: Transaction[]
 }
 
-export type NewGoalFormData = {
-	name: string
-	goalAmount: string
+export type NewTransactionFormData = Pick<Transaction, "amount" | "type">
+
+export type NewGoalFormData = Pick<Goal, "name" | "goalAmount"> & {
 	deadline?: Date
 }
 
-export type UpdateGoalFormData = {
-	id: number
-	name: string
-	goalAmount: string
+export type UpdateGoalFormData = Omit<Goal, "deadline" | "transactions"> & {
 	deadline?: Date
-	isComplete: boolean
-	createdAt: string
 }
 
-export type NewGoalBody = {
-	name: string
-	goalAmount: number
+export type NewGoalBody = Pick<Goal, "name" | "goalAmount"> & {
 	deadline?: string
-	userId?: string
 }

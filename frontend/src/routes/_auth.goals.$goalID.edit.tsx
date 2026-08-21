@@ -27,7 +27,6 @@ function EditGoalForm() {
 
 	const [newGoal, setNewGoal] = useState<UpdateGoalFormData>({
 		...goal,
-		goalAmount: goal.goalAmount.toString(),
 		deadline: goal.deadline ? new Date(goal.deadline) : undefined
 	})
 
@@ -35,7 +34,7 @@ function EditGoalForm() {
 	const navigate = useNavigate()
 
 	const updateGoalMutationFn = (updatedGoal: UpdateGoalFormData) => {
-		const body = {...updatedGoal, goalAmount: parseInt(updatedGoal.goalAmount)}
+		const body = {...updatedGoal}
 		return fetch(import.meta.env.VITE_SERVER + `/goals/${updatedGoal}`, {
 			method: "PUT",
 			headers: {
@@ -81,7 +80,7 @@ function EditGoalForm() {
 
 									<Field>
 										<FieldLabel htmlFor='goalAmount'>Goal Amount</FieldLabel>
-										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={(e) => handleInputChange(e, setNewGoal)} />
+										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={(e) => handleInputChange(e, setNewGoal, true)} />
 									</Field>
 
 									<Field>

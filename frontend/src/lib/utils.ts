@@ -16,10 +16,13 @@ export const calculateCurrentAmountFromTransactions = (transactions: Transaction
 	}, 0) : 0;
 } 
 
-	export const handleInputChange = <T>(e: ChangeEvent<HTMLInputElement>, setFn: React.Dispatch<SetStateAction<T>>) => {
-		const id = e.target.id
-		const value = e.target.value
-		setFn((prev) => {
-			return {...prev, [id]: value}
-		})
-	}
+export const handleInputChange = <T>(e: ChangeEvent<HTMLInputElement>, setFn: React.Dispatch<SetStateAction<T>>, isNumber = false) => {
+	const id = e.target.id
+	const value = e.target.value
+
+	if (isNumber && value !== "" && !/^\d+$/.test(value)) return
+
+	setFn((prev) => {
+		return {...prev, [id]: isNumber && value !== "" ? parseInt(value) : value}
+	})
+}

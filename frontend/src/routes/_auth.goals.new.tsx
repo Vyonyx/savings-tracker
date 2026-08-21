@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { FieldLabel, Field, FieldGroup, FieldSet,  } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
 import { Popover, PopoverTrigger, PopoverContent } from '#/components/ui/popover'
-import { authClient } from '#/lib/auth-client'
 import { handleInputChange } from '#/lib/utils'
 import type { NewGoalFormData, NewGoalBody } from '#/types'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -17,10 +16,9 @@ export const Route = createFileRoute('/_auth/goals/new')({
 })
 
 function NewGoalForm() {
-	const { data: session } = authClient.useSession()
 	const [newGoal, setNewGoal] = useState<NewGoalFormData>({
 		name: "",
-		goalAmount: "",
+		goalAmount: 0,
 		deadline: undefined
 	})
 	const queryClient = useQueryClient()
@@ -30,8 +28,7 @@ function NewGoalForm() {
 	const newGoalMutationFn = (newGoal: NewGoalFormData) => {
 		const body: NewGoalBody = {
 			name: newGoal.name,
-			goalAmount: parseInt(newGoal.goalAmount),
-			userId: session?.user.id,
+			goalAmount: newGoal.goalAmount,
 		}
 
 		if (newGoal.deadline) {
@@ -85,7 +82,7 @@ function NewGoalForm() {
 
 									<Field>
 										<FieldLabel htmlFor='goalAmount'>Goal Amount</FieldLabel>
-										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={(e) => handleInputChange(e, setNewGoal)} />
+										<Input id='goalAmount' type="text" placeholder="0" value={newGoal.goalAmount} onChange={(e) => handleInputChange(e, setNewGoal, true)} />
 									</Field>
 
 									<Field>
