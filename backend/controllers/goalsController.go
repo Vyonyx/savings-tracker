@@ -49,7 +49,10 @@ func GetGoals(ctx *gin.Context) {
 	user := getUser(ctx)
 	var goals []models.Goal
 
-	tx := initializers.DB.Where("user_id = ?", user.ID).Find(&goals)
+	tx := initializers.DB.WithContext(ctx.Request.Context()).
+		Preload("Transactions").
+		Where("user_id = ?", user.ID).
+		Find(&goals)
 
 	if tx.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
@@ -66,7 +69,11 @@ func GetGoal(ctx *gin.Context) {
 	goalID := ctx.Param("goalID")
 	var goal models.Goal
 
-	tx := initializers.DB.Where("user_id = ?", user.ID).Where("id = ?", goalID).First(&goal)
+	tx := initializers.DB.WithContext(ctx.Request.Context()).
+		Preload("Transactions").
+		Where("user_id = ?", user.ID).
+		Where("id = ?", goalID).
+		First(&goal)
 
 	if tx.Error != nil || tx.RowsAffected == 0 {
 		ctx.JSON(http.StatusNotFound, gin.H{
