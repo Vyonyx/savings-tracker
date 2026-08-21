@@ -1,13 +1,16 @@
 export type TransactionType = "deposit" | "withdrawal"
 
 export type Transaction = {
-	id: number
+	id?: number
 	amount: number
 	type: TransactionType
-	createdAt: string
+	createdAt?: string
+	updatedAt?: string
+	userId?: number
+	goalId?: number
 }
 
-export type NewTransaction = {
+export type NewTransactionFormData = {
 	amount: string
 	type: TransactionType
 }

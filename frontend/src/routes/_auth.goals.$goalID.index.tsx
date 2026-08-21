@@ -5,11 +5,11 @@ import { Input } from '#/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '#/components/ui/select'
 import { singleGoalQueryOptions } from '#/lib/queries/goals'
 import { calculateCurrentAmountFromTransactions, handleInputChange } from '#/lib/utils'
-import type { NewTransaction, TransactionType } from '#/types'
-import { useQuery } from '@tanstack/react-query'
-import { createFileRoute } from '@tanstack/react-router'
+import type { NewTransactionFormData, TransactionType } from '#/types'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Dot } from 'lucide-react'
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/')({
 	component: GoalOverview,
@@ -22,12 +22,40 @@ function GoalOverview() {
 	const { goalID } = Route.useParams()
 	const { data: goal } = useQuery(singleGoalQueryOptions(parseInt(goalID)))
 	if (!goal) return <h1>No Goal Found.</h1>
+	const navigate = useNavigate()
+	const queryClient = useQueryClient()
 	const {name, goalAmount, deadline, transactions} = goal
 
-	const [newTransaction, setNewTransaction] = useState<NewTransaction>({
+	const [newTransaction, setNewTransaction] = useState<NewTransactionFormData>({
 		amount: "",
 		type: "deposit",
 	})
+
+	const mutation = useMutation({
+		mutationFn: async (newTransaction: NewTransactionFormData) => {
+			const body = {...newTransaction, amount: parseInt(newTransaction.amount), goalId: goal.id}
+			await fetch(import.meta.env.VITE_SERVER + "/transactions", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("bearer-token")}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(body),
+			})
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["goals"] })
+			navigate({ to: "/goals" })
+		},
+		onError: (error) => {
+			throw new Error(`Failed to create new transaction: ${error}`)
+		},
+	})
+
+	const handleFormSubmit = (e: FormEvent) => {
+		e.preventDefault()
+		mutation.mutate(newTransaction)
+	}
 
 	const currentAmount = calculateCurrentAmountFromTransactions(transactions)
 	return (
@@ -41,7 +69,7 @@ function GoalOverview() {
 				</div>
 			</div>
 
-			<form className='w-full lg:w-9/12'>
+			<form className='w-full lg:w-9/12' onSubmit={handleFormSubmit}>
 				<FieldSet>
 					<FieldGroup className='flex flex-col md:flex-row items-center md:items-end gap-y-6 gap-x-4'>
 						<Field>
