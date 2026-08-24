@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { Dot, SquarePen, Trash } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/')({
 	component: GoalOverview,
@@ -22,7 +23,6 @@ function GoalOverview() {
 	const { goalID } = Route.useParams()
 	const { data: goal } = useQuery(singleGoalQueryOptions(parseInt(goalID)))
 	if (!goal) return <h1>No Goal Found.</h1>
-	const navigate = useNavigate()
 	const queryClient = useQueryClient()
 	const {name, goalAmount, deadline, transactions} = goal
 
@@ -45,10 +45,9 @@ function GoalOverview() {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["goals"] })
-			navigate({ to: "/goals" })
 		},
-		onError: (error) => {
-			throw new Error(`Failed to create new transaction: ${error}`)
+		onError: () => {
+			toast("Failed to create new transaction.")
 		},
 	})
 

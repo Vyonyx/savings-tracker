@@ -45,3 +45,29 @@ func AddTransaction(ctx *gin.Context)  {
 
 	ctx.Status(http.StatusOK)
 }
+
+func DeleteTransaction(ctx *gin.Context) {
+	user := getUser(ctx)
+	id, ok := ctx.Params.Get("transactionID")
+
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Could not find transaction id in url",
+		})
+		return
+	}
+
+	tx := initializers.DB.
+		Where("id = ?", id).
+		Where("user_id = ?", user.ID).
+		Delete(&models.Transaction{})
+
+	if tx.Error != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": fmt.Sprintf("Could not delete transaction %s: %s", id, tx.Error.Error()),
+		})
+		return
+	}
+
+	ctx.Status(http.StatusOK)
+}

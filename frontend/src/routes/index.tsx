@@ -7,12 +7,14 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
 	return (
-		<main className='container px-8 py-10 mx-auto flex flex-col gap-y-10 items-center'>
-			<h1 className='text-4xl text-center'>Dashboard</h1>
+		<>
+			<main className='container px-8 py-10 mx-auto flex flex-col gap-y-10 items-center'>
+				<h1 className='text-4xl text-center'>Dashboard</h1>
 
-			<Button asChild variant="orange" size="lg">
-				<Link to="/goals">Goals</Link>
-			</Button>
-		</main>
+				<Button asChild variant="orange" size="lg">
+					<Link to="/goals">Goals</Link>
+				</Button>
+			</main>
+		</>
 	)
 }

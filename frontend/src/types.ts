@@ -1,7 +1,7 @@
 export type TransactionType = "deposit" | "withdrawal"
 
 export type Transaction = {
-	id?: number
+	id: number
 	amount: number
 	type: TransactionType
 	createdAt?: string
