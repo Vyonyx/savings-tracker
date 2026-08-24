@@ -2,7 +2,7 @@ import { Progress } from "./ui/progress"
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card"
 import type { Goal } from "#/types"
 import clsx from "clsx"
-import { Dot, Plus, SquarePen } from "lucide-react"
+import { Dot, Settings2 } from "lucide-react"
 import { Badge } from "./ui/badge"
 import { Link } from "@tanstack/react-router"
 import { calculateCurrentAmountFromTransactions } from "#/lib/utils"
@@ -42,8 +42,7 @@ export const GoalCard = ({ index, goal }: { index: number, goal: Goal }) => {
 				<span className="text-primary/50">{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>
 
 				<div className="ms-auto flex items-center gap-1">
-				<Link to="/goals/$goalID" params={{goalID: id.toString()}}><Plus className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
-				<Link to="/goals/$goalID/edit" params={{goalID: id.toString()}}><SquarePen className="size-4 text-primary/50 hover:text-primary transition-colors" /></Link>
+				<Link to="/goals/$goalID" params={{goalID: id.toString()}}><Settings2 size={18} className="text-primary/50 hover:text-primary transition-colors" /></Link>
 				</div>
 			</CardFooter>
 		</Card>

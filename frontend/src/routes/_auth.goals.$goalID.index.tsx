@@ -7,8 +7,8 @@ import { singleGoalQueryOptions } from '#/lib/queries/goals'
 import { calculateCurrentAmountFromTransactions, handleInputChange } from '#/lib/utils'
 import type { NewTransactionFormData, TransactionType } from '#/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Dot } from 'lucide-react'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { Dot, SquarePen, Trash } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_auth/goals/$goalID/')({
@@ -66,6 +66,17 @@ function GoalOverview() {
 					<p><span>${new Intl.NumberFormat().format(currentAmount)}</span> of <span>${new Intl.NumberFormat().format(goalAmount)}</span></p>
 					<Dot className="text-primary/50" />
 					<span className="text-primary/50">{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>
+				</div>
+
+				<div className='flex justify-center gap-x-8 mt-4'>
+					<Link className='flex items-center gap-x-2 text-white hover:text-orange transition-colors' to="/goals/$goalID/edit" params={{goalID }}>
+						<SquarePen size={16} />
+						<span>Edit</span>
+					</Link>
+					<a className='flex items-center gap-x-2 text-white hover:text-orange transition-colors cursor-pointer'>
+						<Trash size={16} />
+						<span>Delete</span>
+					</a>
 				</div>
 			</div>
 
