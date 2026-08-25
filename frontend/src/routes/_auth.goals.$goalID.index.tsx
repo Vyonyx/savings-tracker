@@ -25,13 +25,14 @@ function GoalOverview() {
 	if (!goal) return <h1>No Goal Found.</h1>
 	const queryClient = useQueryClient()
 	const {name, goalAmount, deadline, transactions} = goal
+	const navigate = useNavigate()
 
 	const [newTransaction, setNewTransaction] = useState<NewTransactionFormData>({
 		amount: 0,
 		type: "deposit",
 	})
 
-	const mutation = useMutation({
+	const postMutation = useMutation({
 		mutationFn: async (newTransaction: NewTransactionFormData) => {
 			const body = {...newTransaction, amount: newTransaction.amount, goalId: goal.id}
 			await fetch(import.meta.env.VITE_SERVER + "/transactions", {
@@ -51,9 +52,27 @@ function GoalOverview() {
 		},
 	})
 
+	const deleteMutation = useMutation({
+		mutationFn: async (goalID: string) => {
+			await fetch(import.meta.env.VITE_SERVER + `/goals/${goalID}`, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("bearer-token")}`,
+				},
+			})
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["goals"] })
+			navigate({to: "/goals"})
+		},
+		onError: () => {
+			toast("Could not delete goal.")
+		}
+	})
+
 	const handleFormSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault()
-		mutation.mutate(newTransaction)
+		postMutation.mutate(newTransaction)
 	}
 
 	const currentAmount = calculateCurrentAmountFromTransactions(transactions)
@@ -72,7 +91,10 @@ function GoalOverview() {
 						<SquarePen size={16} />
 						<span>Edit</span>
 					</Link>
-					<a className='flex items-center gap-x-2 text-white hover:text-orange transition-colors cursor-pointer'>
+					<a 
+						className='flex items-center gap-x-2 text-white hover:text-orange transition-colors cursor-pointer'
+						onClick={() => deleteMutation.mutate(goalID)}
+					>
 						<Trash size={16} />
 						<span>Delete</span>
 					</a>

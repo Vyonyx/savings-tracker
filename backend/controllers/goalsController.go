@@ -107,6 +107,29 @@ func EditGoal(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
 
+func DeleteGoal(ctx *gin.Context)  {
+	goalID, ok := ctx.Params.Get("goalID")
+
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Could not find goal id in params",
+		})
+		return
+	}
+	user := getUser(ctx)
+
+	tx := initializers.DB.Where("id = ?", goalID).Where("user_id = ?", user.ID).Delete(&models.Goal{})
+
+	if tx.Error != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": fmt.Sprintf("Could not delete goal id %s: %s", goalID, tx.Error.Error()),
+		})
+		return
+	}
+
+	ctx.Status(http.StatusOK)
+}
+
 func getUser(ctx *gin.Context) *models.User {
 	userVal, _ := ctx.Get("user")
 	user, _ := userVal.(*models.User)

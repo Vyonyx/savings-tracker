@@ -45,6 +45,7 @@ func main() {
 	auth.GET("/goals", controllers.GetGoals)
 	auth.GET("/goals/:goalID", controllers.GetGoal)
 	auth.PUT("/goals/:goalID", controllers.EditGoal)
+	auth.DELETE("/goals/:goalID", controllers.DeleteGoal)
 
 	auth.POST("/transactions", controllers.AddTransaction)
 	auth.DELETE("/transactions/:transactionID", controllers.DeleteTransaction)
