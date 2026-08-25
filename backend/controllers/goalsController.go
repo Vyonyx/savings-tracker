@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -117,8 +118,18 @@ func DeleteGoal(ctx *gin.Context)  {
 		return
 	}
 	user := getUser(ctx)
+	id, err := strconv.ParseUint(goalID, 10, 64)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "goal id is not a number",
+		})
+		return
+	}
 
-	tx := initializers.DB.Where("id = ?", goalID).Where("user_id = ?", user.ID).Delete(&models.Goal{})
+	tx := initializers.DB.
+		Where("user_id = ?", user.ID).
+		Select("Transactions").
+		Delete(&models.Goal{ID: uint(id)})
 
 	if tx.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
