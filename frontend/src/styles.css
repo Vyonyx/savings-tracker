@@ -25,6 +25,10 @@
 	.stat-number {
 		@apply font-sora font-medium text-5xl;
 	}
+
+	.stat-number--small {
+		@apply font-sora font-medium text-3xl;
+	}
 }
 
 :root {

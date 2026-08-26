@@ -1,5 +1,11 @@
 export type TransactionType = "deposit" | "withdrawal"
 
+export type BankAccount = {
+	id: number
+	name: string
+	transactions?: Transaction[]
+}
+
 export type Transaction = {
 	id: number
 	amount: number

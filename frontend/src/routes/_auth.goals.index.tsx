@@ -10,6 +10,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { authClient } from '#/lib/auth-client'
 import { useQuery } from '@tanstack/react-query'
 import { goalsQueryOptions } from '#/lib/queries/goals'
+import { bankAccounts } from '#/data/bank-accounts'
+import BankAccountCard from '#/components/BankAccountCard'
 
 export const Route = createFileRoute('/_auth/goals/')({ 
 	beforeLoad: async () => {
@@ -191,6 +193,16 @@ function Goals() {
 				{visibleGoals && visibleGoals.map((goal, i) => (
 					<GoalCard key={goal.id ?? i} index={i} goal={goal} />
 				))}
+			</section>
+
+			<section className='dashboard-bank-accounts-header'>
+				<h3 className='text-3xl'>Bank Accounts</h3>
+			</section>
+
+			<section className='dashboard-bank-accounts mt-4 mb-10'>
+				<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
+					{bankAccounts && bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
+				</ul>
 			</section>
 		</main>
 	)

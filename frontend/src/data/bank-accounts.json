@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1,
+		"name": "Splurge",
+		"transactions": [
+			{
+				"id": 1,
+				"amount": 100,
+				"type": "deposit",
+				"createdAt": "2026-01-01"
+			},
+			{
+				"id": 2,
+				"amount": 45,
+				"type": "deposit",
+				"createdAt": "2026-02-10"
+			},
+			{
+				"id": 3,
+				"amount": 70,
+				"type": "deposit",
+				"createdAt": "2026-03-10"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"name": "Smile",
+		"transactions": [
+			{
+				"id": 4,
+				"amount": 20,
+				"type": "deposit",
+				"createdAt": "2026-04-01"
+			},
+			{
+				"id": 9,
+				"amount": 330,
+				"type": "deposit",
+				"createdAt": "2026-05-15"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"name": "Fire",
+		"transactions": [
+			{
+				"id": 5,
+				"amount": 200,
+				"type": "deposit",
+				"createdAt": "2026-07-01"
+			},
+			{
+				"id": 6,
+				"amount": 300,
+				"type": "deposit",
+				"createdAt": "2026-08-10"
+			}
+		]
+	}
+]
