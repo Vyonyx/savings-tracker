@@ -19,6 +19,7 @@ import { Route as AuthGoalsIndexRouteImport } from './routes/_auth.goals.index'
 import { Route as AuthGoalsGoalIDRouteRouteImport } from './routes/_auth.goals.$goalID.route'
 import { Route as AuthGoalsNewRouteImport } from './routes/_auth.goals.new'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AuthBankAccountsAccountIDIndexRouteImport } from './routes/_auth.bank-accounts.$accountID.index'
 import { Route as AuthGoalsGoalIDIndexRouteImport } from './routes/_auth.goals.$goalID.index'
 import { Route as AuthGoalsGoalIDEditRouteImport } from './routes/_auth.goals.$goalID.edit'
 
@@ -70,6 +71,12 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthBankAccountsAccountIDIndexRoute =
+  AuthBankAccountsAccountIDIndexRouteImport.update({
+    id: '/bank-accounts/$accountID/',
+    path: '/bank-accounts/$accountID/',
+    getParentRoute: () => AuthRoute,
+  } as any)
 const AuthGoalsGoalIDIndexRoute = AuthGoalsGoalIDIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/goals/': typeof AuthGoalsIndexRoute
   '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/bank-accounts/$accountID/': typeof AuthBankAccountsAccountIDIndexRoute
   '/goals/$goalID/': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +109,7 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/goals': typeof AuthGoalsIndexRoute
   '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/bank-accounts/$accountID': typeof AuthBankAccountsAccountIDIndexRoute
   '/goals/$goalID': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRoutesById {
@@ -116,6 +125,7 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_auth/goals/': typeof AuthGoalsIndexRoute
   '/_auth/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
+  '/_auth/bank-accounts/$accountID/': typeof AuthBankAccountsAccountIDIndexRoute
   '/_auth/goals/$goalID/': typeof AuthGoalsGoalIDIndexRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/goals/'
     | '/goals/$goalID/edit'
+    | '/bank-accounts/$accountID/'
     | '/goals/$goalID/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/goals'
     | '/goals/$goalID/edit'
+    | '/bank-accounts/$accountID'
     | '/goals/$goalID'
   id:
     | '__root__'
@@ -154,6 +166,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/_auth/goals/'
     | '/_auth/goals/$goalID/edit'
+    | '/_auth/bank-accounts/$accountID/'
     | '/_auth/goals/$goalID/'
   fileRoutesById: FileRoutesById
 }
@@ -236,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/bank-accounts/$accountID/': {
+      id: '/_auth/bank-accounts/$accountID/'
+      path: '/bank-accounts/$accountID'
+      fullPath: '/bank-accounts/$accountID/'
+      preLoaderRoute: typeof AuthBankAccountsAccountIDIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/goals/$goalID/': {
       id: '/_auth/goals/$goalID/'
       path: '/'
@@ -284,10 +304,12 @@ const AuthGoalsRouteRouteWithChildren = AuthGoalsRouteRoute._addFileChildren(
 
 interface AuthRouteChildren {
   AuthGoalsRouteRoute: typeof AuthGoalsRouteRouteWithChildren
+  AuthBankAccountsAccountIDIndexRoute: typeof AuthBankAccountsAccountIDIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthGoalsRouteRoute: AuthGoalsRouteRouteWithChildren,
+  AuthBankAccountsAccountIDIndexRoute: AuthBankAccountsAccountIDIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
