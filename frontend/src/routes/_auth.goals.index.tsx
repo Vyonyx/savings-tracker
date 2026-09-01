@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '#/components/ui/dropdown-menu'
 import { authClient } from '#/lib/auth-client'
 import { useQuery } from '@tanstack/react-query'
-import { goalsQueryOptions } from '#/lib/queries/goals'
-import { bankAccounts } from '#/data/bank-accounts'
+import { bankAccountsQueryOptions, goalsQueryOptions } from '#/lib/queries/goals'
 import BankAccountCard from '#/components/BankAccountCard'
 
 export const Route = createFileRoute('/_auth/goals/')({ 
@@ -21,12 +20,15 @@ export const Route = createFileRoute('/_auth/goals/')({
 	},
 	loader: ({ context }) => {
 		context.queryClient.ensureQueryData(goalsQueryOptions)
+		context.queryClient.ensureQueryData(bankAccountsQueryOptions)
 	},
 	component: Goals
 })
 
 function Goals() {
 	const { data: goals } = useQuery(goalsQueryOptions)
+	const { data: bankAccounts } = useQuery(bankAccountsQueryOptions)
+
 	const [visibleGoals, setVisibleGoals] = useState<Goal[]>(goals ?? [])
 
 	if (!goals) return <h1>Loading...</h1>
@@ -111,8 +113,8 @@ function Goals() {
 	}
 
 	return (
-		<main className='container mx-auto px-8'>
-			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-10'>
+		<main className='container mx-auto p-8'>
+			<section className='dashboard-statistics grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-10'>
 				<Card className='md:col-span-2 bg-linear-to-r from-dark-orange to-orange'>
 					<CardHeader className='card-heading--small'>Total savings</CardHeader>
 					<CardContent>
@@ -195,15 +197,22 @@ function Goals() {
 				))}
 			</section>
 
-			<section className='dashboard-bank-accounts-header'>
-				<h3 className='text-3xl'>Bank Accounts</h3>
-			</section>
 
-			<section className='dashboard-bank-accounts mt-4 mb-10'>
-				<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
-					{bankAccounts && bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
-				</ul>
-			</section>
+			{bankAccounts ?  (
+				<>
+					<section className='dashboard-bank-accounts-header'>
+						<h3 className='text-3xl'>Bank Accounts</h3>
+					</section>
+
+					<section className='dashboard-bank-accounts mt-4 mb-10'>
+						<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
+							{bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
+						</ul>
+					</section>
+				</>
+			) : (
+					<h1 className='text-xl'>No Bank Accounts Found.</h1>
+				)}
 		</main>
 	)
 }

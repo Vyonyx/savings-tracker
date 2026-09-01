@@ -15,7 +15,7 @@ function RouteComponent() {
 	const { data: bankAccounts } = useQuery(bankAccountsQueryOptions)
 	if (!bankAccounts) return (
 		<main className='container mx-auto p-8 flex flex-col items-center gap-y-4'>
-			<h1 className='text-2xl'>No Bank Accounts Found.</h1>
+			<h1 className='text-xl'>No Bank Accounts Found.</h1>
 
 			<Button asChild variant='orange'>
 				<Link to='/goals'>Back to Goals</Link>
