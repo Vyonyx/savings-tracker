@@ -1,8 +1,8 @@
 import GoalCard from '#/components/GoalCard'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader } from '#/components/ui/card'
-import { createFileRoute, redirect } from '@tanstack/react-router'
-import { ArrowUpDown, ListFilter } from 'lucide-react'
+import { createFileRoute, Link, redirect } from '@tanstack/react-router'
+import { ArrowUpDown, ListFilter, PlusIcon } from 'lucide-react'
 import type { Goal } from '#/types'
 import DepositsBarChart from '#/components/ui/DepositsBarChart'
 import { useEffect, useState } from 'react'
@@ -198,21 +198,25 @@ function Goals() {
 			</section>
 
 
-			{bankAccounts ?  (
-				<>
-					<section className='dashboard-bank-accounts-header'>
-						<h3 className='text-3xl'>Bank Accounts</h3>
-					</section>
+			<section className='dashboard-bank-accounts-header flex justify-between items-center '>
+				{bankAccounts ? (
+					<h3 className='text-xl'>Bank Accounts</h3>
+				) : (
+						<h1 className='text-xl'>No Bank Accounts Found.</h1>
+					)}
 
-					<section className='dashboard-bank-accounts mt-4 mb-10'>
-						<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
-							{bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
-						</ul>
-					</section>
-				</>
-			) : (
-					<h1 className='text-xl'>No Bank Accounts Found.</h1>
+				<Button asChild variant="green" size="lg">
+					<Link to="/bank-accounts/new"><PlusIcon size={8} /> New Bank Account</Link>
+				</Button>
+			</section>
+
+			<section className='dashboard-bank-accounts mt-4 mb-10'>
+				{bankAccounts && (
+					<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
+						{bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
+					</ul>
 				)}
+			</section>
 		</main>
 	)
 }
