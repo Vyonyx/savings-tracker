@@ -15,6 +15,7 @@ import { Route as GuestRouteImport } from './routes/_guest'
 import { Route as AuthGoalsRouteRouteImport } from './routes/_auth.goals.route'
 import { Route as GuestLoginRouteImport } from './routes/_guest.login'
 import { Route as GuestSignupRouteImport } from './routes/_guest.signup'
+import { Route as AuthBankAccountsIndexRouteImport } from './routes/_auth.bank-accounts.index'
 import { Route as AuthGoalsIndexRouteImport } from './routes/_auth.goals.index'
 import { Route as AuthGoalsGoalIDRouteRouteImport } from './routes/_auth.goals.$goalID.route'
 import { Route as AuthGoalsNewRouteImport } from './routes/_auth.goals.new'
@@ -50,6 +51,11 @@ const GuestSignupRoute = GuestSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => GuestRoute,
+} as any)
+const AuthBankAccountsIndexRoute = AuthBankAccountsIndexRouteImport.update({
+  id: '/bank-accounts/',
+  path: '/bank-accounts/',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AuthGoalsIndexRoute = AuthGoalsIndexRouteImport.update({
   id: '/',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/goals/$goalID': typeof AuthGoalsGoalIDRouteRouteWithChildren
   '/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/bank-accounts/': typeof AuthBankAccountsIndexRoute
   '/goals/': typeof AuthGoalsIndexRoute
   '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
   '/bank-accounts/$accountID/': typeof AuthBankAccountsAccountIDIndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/signup': typeof GuestSignupRoute
   '/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/bank-accounts': typeof AuthBankAccountsIndexRoute
   '/goals': typeof AuthGoalsIndexRoute
   '/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
   '/bank-accounts/$accountID': typeof AuthBankAccountsAccountIDIndexRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/_auth/goals/$goalID': typeof AuthGoalsGoalIDRouteRouteWithChildren
   '/_auth/goals/new': typeof AuthGoalsNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_auth/bank-accounts/': typeof AuthBankAccountsIndexRoute
   '/_auth/goals/': typeof AuthGoalsIndexRoute
   '/_auth/goals/$goalID/edit': typeof AuthGoalsGoalIDEditRoute
   '/_auth/bank-accounts/$accountID/': typeof AuthBankAccountsAccountIDIndexRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/goals/$goalID'
     | '/goals/new'
     | '/api/auth/$'
+    | '/bank-accounts/'
     | '/goals/'
     | '/goals/$goalID/edit'
     | '/bank-accounts/$accountID/'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/goals/new'
     | '/api/auth/$'
+    | '/bank-accounts'
     | '/goals'
     | '/goals/$goalID/edit'
     | '/bank-accounts/$accountID'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/_auth/goals/$goalID'
     | '/_auth/goals/new'
     | '/api/auth/$'
+    | '/_auth/bank-accounts/'
     | '/_auth/goals/'
     | '/_auth/goals/$goalID/edit'
     | '/_auth/bank-accounts/$accountID/'
@@ -220,6 +232,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof GuestSignupRouteImport
       parentRoute: typeof GuestRoute
+    }
+    '/_auth/bank-accounts/': {
+      id: '/_auth/bank-accounts/'
+      path: '/bank-accounts'
+      fullPath: '/bank-accounts/'
+      preLoaderRoute: typeof AuthBankAccountsIndexRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/_auth/goals/': {
       id: '/_auth/goals/'
@@ -304,11 +323,13 @@ const AuthGoalsRouteRouteWithChildren = AuthGoalsRouteRoute._addFileChildren(
 
 interface AuthRouteChildren {
   AuthGoalsRouteRoute: typeof AuthGoalsRouteRouteWithChildren
+  AuthBankAccountsIndexRoute: typeof AuthBankAccountsIndexRoute
   AuthBankAccountsAccountIDIndexRoute: typeof AuthBankAccountsAccountIDIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthGoalsRouteRoute: AuthGoalsRouteRouteWithChildren,
+  AuthBankAccountsIndexRoute: AuthBankAccountsIndexRoute,
   AuthBankAccountsAccountIDIndexRoute: AuthBankAccountsAccountIDIndexRoute,
 }
 

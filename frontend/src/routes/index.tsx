@@ -14,6 +14,10 @@ function RouteComponent() {
 				<Button asChild variant="orange" size="lg">
 					<Link to="/goals">Goals</Link>
 				</Button>
+
+				<Button asChild variant="orange" size="lg">
+					<Link to="/bank-accounts">Bank Accounts</Link>
+				</Button>
 			</main>
 		</>
 	)
