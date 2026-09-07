@@ -50,5 +50,11 @@ func main() {
 	auth.POST("/transactions", controllers.AddTransaction)
 	auth.DELETE("/transactions/:transactionID", controllers.DeleteTransaction)
 
+	auth.POST("/bank-accounts", controllers.AddBankAccount)
+	auth.GET("/bank-accounts", controllers.GetBankAccounts)
+	auth.GET("/bank-accounts/:bankAccountID", controllers.GetBankAccount)
+	auth.PUT("/bank-accounts/:bankAccountID", controllers.EditBankAccount)
+	auth.DELETE("/bank-accounts/:bankAccountID", controllers.DeleteBankAccount)
+
 	router.Run(os.Getenv("PORT"))
 }
