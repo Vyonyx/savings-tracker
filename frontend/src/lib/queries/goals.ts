@@ -30,7 +30,7 @@ export const singleGoalQueryOptions = (goalID: number) => queryOptions({
 export const bankAccountsQueryOptions = queryOptions({
 	queryKey: ["bank-accounts"],
 	queryFn: async (): Promise<BankAccount[]> => {
-		const res = await fetch(import.meta.env.VITE_SERVER, {
+		const res = await fetch(import.meta.env.VITE_SERVER + '/bank-accounts', {
 			method: "GET",
 			headers: {
 				Authorization: `Bearer ${localStorage.getItem("bearer-token")}`
