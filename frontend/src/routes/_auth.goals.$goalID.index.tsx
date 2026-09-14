@@ -81,6 +81,8 @@ function GoalOverview() {
 			<div className='text-center flex flex-col gap-4'>
 				<h1 className='text-4xl'>{name}</h1>
 				<div className='card-heading--regular flex justify-center items-center'>
+					<span className='text-primary/50'>Account: {goal.bankAccountName}</span>
+					<Dot className="text-primary/50" />
 					<p><span>${new Intl.NumberFormat().format(currentAmount)}</span> of <span>${new Intl.NumberFormat().format(goalAmount)}</span></p>
 					<Dot className="text-primary/50" />
 					<span className="text-primary/50">{deadline ? 'Due ' + Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(deadline)) : 'No deadline'}</span>

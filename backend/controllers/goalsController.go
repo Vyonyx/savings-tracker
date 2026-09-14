@@ -65,24 +65,33 @@ func GetGoals(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, goals)
 }
 
+type GoalAndBankAccountName struct {
+	models.Goal
+	BankAccountName string `json:"bankAccountName"`
+}
+
 func GetGoal(ctx *gin.Context) {
 	user := getUser(ctx)
 	goalID := ctx.Param("goalID")
-	var goal models.Goal
+	var result GoalAndBankAccountName
 
 	tx := initializers.DB.WithContext(ctx.Request.Context()).
+		Model(&models.Goal{}).
+		Select("goals.*, bank_accounts.name AS bank_account_name").
+		Joins("JOIN bank_accounts ON bank_accounts.id = goals.bank_account_id").
 		Preload("Transactions").
-		Where("user_id = ?", user.ID).
-		Where("id = ?", goalID).
-		First(&goal)
+		Where("goals.user_id = ?", user.ID).
+		Where("goals.id = ?", goalID).
+		First(&result)
 
 	if tx.Error != nil || tx.RowsAffected == 0 {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"error": tx.Error.Error(),
 		})
+		return
 	}
 
-	ctx.JSON(http.StatusOK, goal)
+	ctx.JSON(http.StatusOK, result)
 }
 
 func EditGoal(ctx *gin.Context) {

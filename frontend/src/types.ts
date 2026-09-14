@@ -26,6 +26,7 @@ export type Goal = {
 	createdAt: string
 	transactions?: Transaction[]
 	bankAccountId: number
+	bankAccountName: string
 }
 
 export type NewBankAccountFormData = Pick<BankAccount, "name">
