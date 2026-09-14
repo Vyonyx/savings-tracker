@@ -10,7 +10,7 @@ type Transaction struct {
 	Type string `json:"type"`
 	UserID string `gorm:"index" json:"userId"`
 	GoalID uint `gorm:"index" json:"goalId"`
-	BankAccountID uint `gorm:"index" json:"bankAccountID"`
+	BankAccountID uint `gorm:"index" json:"bankAccountId"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }

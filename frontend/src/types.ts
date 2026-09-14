@@ -10,10 +10,11 @@ export type Transaction = {
 	id: number
 	amount: number
 	type: TransactionType
-	createdAt?: string
-	updatedAt?: string
-	userId?: number
-	goalId?: number
+	createdAt: string
+	updatedAt: string
+	userId: number
+	goalId: number
+	bankAccountId: number
 }
 
 export type Goal = {
@@ -24,13 +25,14 @@ export type Goal = {
 	isComplete: boolean
 	createdAt: string
 	transactions?: Transaction[]
+	bankAccountId: number
 }
 
 export type NewBankAccountFormData = Pick<BankAccount, "name">
 
 export type NewTransactionFormData = Pick<Transaction, "amount" | "type">
 
-export type NewGoalFormData = Pick<Goal, "name" | "goalAmount"> & {
+export type NewGoalFormData = Pick<Goal, "name" | "goalAmount" | "bankAccountId"> & {
 	deadline?: Date
 }
 

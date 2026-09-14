@@ -13,6 +13,6 @@ type Goal struct {
 	Deadline *time.Time `json:"deadline,omitempty"`
 	IsComplete bool `json:"isComplete"`
 	UserID string `gorm:"index" json:"userId"`
-	BankAccountID uint `gorm:"index" json:"bankAccountID"`
+	BankAccountID uint `gorm:"index" json:"bankAccountId"`
 	Transactions []Transaction `gorm:"foreignKey:GoalID;references:ID" json:"transactions,omitempty"`
 }

@@ -52,24 +52,24 @@ function NewBankAccountForm() {
 					<CardTitle>
 						<h1 className='text-2xl text-center'>New Bank Account</h1>
 					</CardTitle>
-
-					<CardContent className='mt-4'>
-						<form onSubmit={(e) => handleSubmit(e)}>
-							<FieldSet>
-								<FieldGroup>
-									<Field>
-										<FieldLabel htmlFor='name'>Name</FieldLabel>
-										<Input id='name' type="text" placeholder="Name" value={newBankAccount.name} onChange={(e) => handleInputChange(e, setNewBankAccount)} />
-									</Field>
-
-									<Field className='w-40 mx-auto mt-4'>
-										<Button variant="green" size="lg" type="submit">Add</Button>
-									</Field>
-								</FieldGroup>
-							</FieldSet>
-						</form>
-					</CardContent>
 				</CardHeader>
+
+				<CardContent className='mt-4'>
+					<form onSubmit={(e) => handleSubmit(e)}>
+						<FieldSet>
+							<FieldGroup>
+								<Field>
+									<FieldLabel htmlFor='name'>Name</FieldLabel>
+									<Input id='name' type="text" placeholder="Name" value={newBankAccount.name} onChange={(e) => handleInputChange(e, setNewBankAccount)} />
+								</Field>
+
+								<Field className='w-40 mx-auto mt-4'>
+									<Button variant="green" size="lg" type="submit">Add</Button>
+								</Field>
+							</FieldGroup>
+						</FieldSet>
+					</form>
+				</CardContent>
 			</Card>
 		</main>
 	)
