@@ -31,7 +31,9 @@ export type Goal = {
 
 export type NewBankAccountFormData = Pick<BankAccount, "name">
 
-export type NewTransactionFormData = Pick<Transaction, "amount" | "type">
+export type NewTransactionFormData = Pick<Transaction, "amount" | "type"> & {
+	bankAccountId?: number
+}
 
 export type NewGoalFormData = Pick<Goal, "name" | "goalAmount"> & {
 	bankAccountId?: number

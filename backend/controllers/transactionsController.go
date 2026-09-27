@@ -13,7 +13,7 @@ type NewTransaction struct {
 	Amount int
 	Type string
 	GoalID uint
-
+	BankAccountID uint
 }
 
 func AddTransaction(ctx *gin.Context)  {
@@ -34,6 +34,7 @@ func AddTransaction(ctx *gin.Context)  {
 		Type: newTransaction.Type,
 		GoalID: newTransaction.GoalID,
 		UserID: user.ID,
+		BankAccountID: newTransaction.BankAccountID,
 	})
 
 	if tx.Error != nil {

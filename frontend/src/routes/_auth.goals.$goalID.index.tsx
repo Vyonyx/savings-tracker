@@ -22,19 +22,18 @@ export const Route = createFileRoute('/_auth/goals/$goalID/')({
 function GoalOverview() {
 	const { goalID } = Route.useParams()
 	const { data: goal } = useQuery(singleGoalQueryOptions(parseInt(goalID)))
-	if (!goal) return <h1>No Goal Found.</h1>
 	const queryClient = useQueryClient()
-	const {name, goalAmount, deadline, transactions} = goal
 	const navigate = useNavigate()
 
 	const [newTransaction, setNewTransaction] = useState<NewTransactionFormData>({
 		amount: 0,
 		type: "deposit",
+		bankAccountId: goal?.bankAccountId
 	})
 
 	const postMutation = useMutation({
 		mutationFn: async (newTransaction: NewTransactionFormData) => {
-			const body = {...newTransaction, amount: newTransaction.amount, goalId: goal.id}
+			const body = {...newTransaction, amount: newTransaction.amount, goalId: goal?.id}
 			await fetch(import.meta.env.VITE_SERVER + "/transactions", {
 				method: "POST",
 				headers: {
@@ -69,6 +68,10 @@ function GoalOverview() {
 			toast("Could not delete goal.")
 		}
 	})
+
+	if (!goal) return <h1>No Goal Found.</h1>
+
+	const {name, goalAmount, deadline, transactions} = goal
 
 	const handleFormSubmit = (e: React.SubmitEvent) => {
 		e.preventDefault()
