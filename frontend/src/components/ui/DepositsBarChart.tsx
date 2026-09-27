@@ -32,7 +32,7 @@ function DepositsBarChart({ goals }: Props) {
 	goals.forEach((goal) => {
 		goal.transactions?.forEach((transaction) => {
 			const date = new Date(transaction.createdAt)
-			const shortMonthName = date.toLocaleString('default', { month: 'short' });
+			const shortMonthName = date.toLocaleString('en-US', { month: 'short' });
 			const existing = chartData.find(data => data.month === shortMonthName)
 			if (existing) existing.total += transaction.type === "withdrawal" ? transaction.amount * -1 : transaction.amount
 		})
