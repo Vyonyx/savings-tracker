@@ -213,7 +213,7 @@ function Goals() {
 			<section className='dashboard-bank-accounts mt-4 mb-10'>
 				{bankAccounts && (
 					<ul className='grid md:grid-cols2 lg:grid-cols-3 gap-4'>
-						{bankAccounts.map((account) => <BankAccountCard bankAccount={account} />)}
+						{bankAccounts.map((account) => <BankAccountCard key={account.id} bankAccount={account} />)}
 					</ul>
 				)}
 			</section>
