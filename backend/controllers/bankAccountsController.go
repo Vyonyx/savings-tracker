@@ -16,9 +16,11 @@ type NewBankAccount struct {
 func GetBankAccounts(ctx * gin.Context)  {
 	user := getUser(ctx)
 	var bankAccounts []models.BankAccount
-	tx := initializers.DB.
-		Find(&bankAccounts).
-		Where("user_id = ?", user.ID)
+	tx := initializers.DB.WithContext(ctx.Request.Context()).
+		Model(&models.BankAccount{}).
+		Preload("Transactions").
+		Where("user_id = ?", user.ID).
+		Find(&bankAccounts)
 
 	if tx.Error != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{

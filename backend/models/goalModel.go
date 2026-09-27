@@ -14,5 +14,5 @@ type Goal struct {
 	IsComplete bool `json:"isComplete"`
 	UserID string `gorm:"index" json:"userId"`
 	BankAccountID uint `gorm:"index" json:"bankAccountId"`
-	Transactions []Transaction `gorm:"foreignKey:GoalID;references:ID" json:"transactions,omitempty"`
+	Transactions []Transaction `gorm:"foreignKey:GoalID;references:ID;constraint:OnDelete:CASCADE" json:"transactions,omitempty"`
 }

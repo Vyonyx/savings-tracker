@@ -8,6 +8,6 @@ type BankAccount struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 	Name string `json:"name"`
 	UserID string `gorm:"index" json:"userId"`
-	Goals []Goal `gorm:"foreignKey:BankAccountID;references:ID" json:"goals,omitempty"`
-	Transactions []Transaction `gorm:"foreignKey:BankAccountID;references:ID" json:"transactions,omitempty"`
+	Goals []Goal `gorm:"foreignKey:BankAccountID;references:ID;constraint:OnDelete:CASCADE" json:"goals,omitempty"`
+	Transactions []Transaction `gorm:"foreignKey:BankAccountID;references:ID;constraint:OnDelete:CASCADE" json:"transactions,omitempty"`
 }
