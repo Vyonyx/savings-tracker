@@ -11,6 +11,7 @@ type Transaction struct {
 	UserID string `gorm:"index" json:"userId"`
 	GoalID uint `gorm:"index" json:"goalId"`
 	BankAccountID uint `gorm:"index" json:"bankAccountId"`
+	GoalName string `gorm:"->" json:"goalName"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/vyonyx/savings-tracker/backend/initializers"
 	"github.com/vyonyx/savings-tracker/backend/models"
+	"gorm.io/gorm"
 )
 
 type NewBankAccount struct {
@@ -45,7 +46,11 @@ func GetBankAccount(ctx *gin.Context) {
 
 	var bankAccount models.BankAccount
 	tx := initializers.DB.WithContext(ctx.Request.Context()).
-		Preload("Transactions").
+		Preload("Transactions", func (db *gorm.DB) *gorm.DB  {
+			return db.
+				Select("transactions.*, goals.name as goal_name").
+				Joins("JOIN goals ON transactions.goal_id = goals.id")
+		}).
 		Where("user_id = ?", user.ID).
 		Where("id = ?", id).
 		First(&bankAccount)

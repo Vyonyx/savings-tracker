@@ -14,6 +14,7 @@ export type Transaction = {
 	updatedAt: string
 	userId: number
 	goalId: number
+	goalName?: string
 	bankAccountId: number
 }
 

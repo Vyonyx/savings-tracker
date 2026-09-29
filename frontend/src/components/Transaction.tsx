@@ -9,7 +9,7 @@ type Props = {
 }
 
 function TransactionCard({ transaction }: Props) {
-	const { id, amount, type, createdAt: date, goalId } = transaction
+	const { id, amount, type, createdAt: date, goalId, goalName } = transaction
 	const queryClient = useQueryClient()
 
 	const mutation = useMutation({
@@ -40,7 +40,9 @@ function TransactionCard({ transaction }: Props) {
 				<span>${Intl.NumberFormat().format(amount)}</span>
 			</div>
 
-			<div className="flex items-center gap-x-4">
+			<div className="flex items-center gap-x-6">
+				{goalName && <span className="card-heading--small text-primary/50">{goalName}</span>}
+
 				{date && (
 					<span className="card-heading--small text-primary/50">{Intl.DateTimeFormat().format(new Date(date))}</span>
 				)}

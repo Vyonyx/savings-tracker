@@ -27,7 +27,7 @@ function BankAccountOverview() {
 			<div className='text-center flex flex-col gap-4'>
 				<h1 className='text-4xl'>{name}</h1>
 				<span className={clsx(
-					'stat-number--small', 
+					'text-xl', 
 					{
 						'text-green': currentAmount > 0,
 						'text-orange' : currentAmount < 0,
