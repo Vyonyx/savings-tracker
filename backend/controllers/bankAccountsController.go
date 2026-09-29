@@ -44,10 +44,11 @@ func GetBankAccount(ctx *gin.Context) {
 	}
 
 	var bankAccount models.BankAccount
-	tx := initializers.DB.
-		First(&bankAccount).
+	tx := initializers.DB.WithContext(ctx.Request.Context()).
+		Preload("Transactions").
 		Where("user_id = ?", user.ID).
-		Where("id = ?", id)
+		Where("id = ?", id).
+		First(&bankAccount)
 
 	if tx.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
