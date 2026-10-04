@@ -44,6 +44,7 @@ function NewGoalForm() {
 		const body: NewGoalBody = {
 			name: newGoal.name,
 			goalAmount: newGoal.goalAmount,
+			bankAccountId: newGoal.bankAccountId!
 		}
 
 		if (newGoal.deadline) {

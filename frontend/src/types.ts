@@ -45,6 +45,6 @@ export type UpdateGoalFormData = Omit<Goal, "deadline" | "transactions"> & {
 	deadline?: Date
 }
 
-export type NewGoalBody = Pick<Goal, "name" | "goalAmount"> & {
+export type NewGoalBody = Pick<Goal, "name" | "goalAmount" | "bankAccountId"> & {
 	deadline?: string
 }

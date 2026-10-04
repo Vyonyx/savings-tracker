@@ -17,6 +17,7 @@ type NewGoal struct {
 	Deadline *time.Time
 	IsComplete bool
 	UserID string
+	BankAccountID uint `json:"bankAccountId"`
 }
 
 func AddGoal(ctx *gin.Context) {
@@ -37,6 +38,7 @@ func AddGoal(ctx *gin.Context) {
 		GoalAmount: newGoal.GoalAmount,
 		IsComplete: false,
 		UserID: user.ID,
+		BankAccountID: newGoal.BankAccountID,
 	}
 
 	if newGoal.Deadline != nil {
